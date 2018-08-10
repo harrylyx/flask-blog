@@ -1,7 +1,6 @@
 {% extends 'admin/base.html' %}
 
 {% block access_control %}
-{% if current_user.is_authenticated %}
 <div class="btn-group pull-right">
     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
         <i class="icon-user"></i> {{ current_user.login }} <span class="caret"></span>
@@ -10,5 +9,5 @@
         <li><a href="{{ url_for('logout') }}">Log out</a></li>
     </ul>
 </div>
-{% endif %}
-{% endblock %}
+{% endblock access_control %}
+<h1>欢迎来到后台管理界面</h1>
