@@ -1,6 +1,6 @@
 from flask import render_template, request
 from app import login
-from app.models import User, Article
+from app.models import Article, Category, Tag
 from . import bp
 
 
@@ -25,7 +25,7 @@ def article(id):
 
     page = request.args.get('page', 1, type=int)
 
-    return render_template('main/article.html', article=article, next_article=next,
+    return render_template('main/article.html', article=article,  category_id=article.category_id, next_article=next,
                            prev_article=prev, endpoint='.article', id=article.id)
 
 
@@ -57,6 +57,36 @@ def prev_article(article):
     return None
 
 
-@login.user_loader
-def load_user(id):
-    return User.query.get(int(id))
+@bp.route('/category/<int:id>/')
+def category(id):
+    page = request.args.get('page', 1, type=int)
+    pagination = Category.query.get_or_404(id).articles.order_by(
+        Article.created.desc()).paginate(
+        page, per_page=Article.PER_PAGE,
+        error_out=False)
+    articles = pagination.items
+    return render_template('index.html', articles=articles,
+                           pagination=pagination, endpoint='.category',
+                           id=id, category_id=id)
+
+
+@bp.route('/tag/<name>/')
+def tag(name):
+    page = int(request.args.get('page', 1))
+    # 若name为非ASCII字符，传入时一般是经过URL编码的
+    # 若name为URL编码，则需要解码为Unicode
+    # URL编码判断方法：若已为URL编码, 再次编码会在每个码之前出现`%25`
+    # _name = to_bytes(name, 'utf-8')
+    # if urllib.quote(_name).count('%25') > 0:
+    #     name = urllib.unquote(_name)
+    tag = Tag.query.filter_by(name=name).first_or_404()
+    _query = Article.query.filter(Article.tags.any(id=tag.id)).order_by(
+        Article.created.desc())
+    pagination = _query.paginate(
+        page, per_page=Article.PER_PAGE,
+        error_out=False)
+    articles = pagination.items
+    return render_template('index.html',
+                           articles=articles,
+                           tag=tag,
+                           pagination=pagination, endpoint='.index', select_tag=tag)

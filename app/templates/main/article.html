@@ -1,4 +1,12 @@
 {% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css"
+      href="{{ url_for('static', filename='css/github.css') }}">
+<link rel="stylesheet" type="text/css"
+      href="{{ url_for('static', filename='css/default.css') }}">
+{% endblock head %}
+
 {% block content %}
     <article class="entry">
 
@@ -7,9 +15,6 @@
             <h2 class="entry-title">
                 {{ article.title }}
             </h2>
-
-
-
 
         </header>
 
@@ -40,5 +45,5 @@
 
 
     </article>
-{% endblock %}
+{% endblock content %}
 
