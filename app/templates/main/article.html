@@ -3,6 +3,10 @@
 {% block head %}
 <link rel="stylesheet" type="text/css"
       href="{{ url_for('static', filename='css/default.css') }}">
+{{moment.include_jquery()}}
+{{moment.include_moment()}}
+<!--使用中文-->
+{{moment.lang('zh-CN')}}
 {% endblock head %}
 
 {% block content %}
@@ -46,9 +50,10 @@
         <h2 class="am-article-title blog-title">
             {{ article.title }}
         </h2>
+        <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
         <div class="am-g blog-content">
             <div class="am-u-lg-7">
-                {{ moment(article.created).fromNow() }}
+                {{ moment(article.created).format('LLL') }}
                 {% if article.content_html %}
                     {{ article.content_html | safe }}
                 {% else %}

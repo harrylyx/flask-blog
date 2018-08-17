@@ -91,7 +91,7 @@ class ArticleAdmin(ModelView):
     def on_model_change(self, form, model, is_created):
         if is_created:
             model.author_id = current_user.id
-            model.created = datetime.datetime.now()
+            model.created = datetime.datetime.utcnow()
 
 
 class CategoryAdmin(ModelView):
