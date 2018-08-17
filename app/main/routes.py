@@ -1,5 +1,4 @@
 from flask import render_template, request
-from app import login
 from app.models import Article, Category, Tag
 from . import bp
 
@@ -13,7 +12,8 @@ def index():
                                          per_page=Article.PER_PAGE,
                                          error_out=False)
     articles = pagination.items
-    return render_template('main/index.html', articles=articles,
+    categories = Category.query.all()
+    return render_template('main/index.html', articles=articles, categories=categories,
                            pagination=pagination, endpoint='main.index')
 
 

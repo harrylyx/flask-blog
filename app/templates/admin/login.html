@@ -1,24 +1,65 @@
 {% extends "base.html" %}
 
+{% block head %}
+<style>
+.header {
+  text-align: center;
+}
+.header h1 {
+  font-size: 200%;
+  color: #333;
+  margin-top: 30px;
+}
+.header p {
+  font-size: 14px;
+}
+</style>
+{% endblock %}
+
 {% block content %}
-    <h1>Sign In</h1>
-    <form action="" method="post">
-        {{ form.hidden_tag() }}
-        <p>
+<div class="header">
+    <div class="am-g">
+        <h1>Web ide</h1>
+        <p>Integrated Development Environment<br>代码编辑，代码生成，界面设计，调试，编译</p>
+    </div>
+    <hr>
+</div>
+
+<div class="am-g">
+    <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <div class="am-alert am-alert-danger" data-am-alert>
+                {{ message }}
+            </div>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        <h3>登录</h3>
+        <hr>
+        <form  action="" method="post" class="am-form" data-am-validator>
+            {{ form.hidden_tag() }}
             {{ form.username.label }}<br>
             {{ form.username(size=32) }}<br>
             {% for error in form.username.errors %}
-            <span style="color: red;">[{{ error }}]</span>
+            <div class="am-alert am-alert-danger" data-am-alert>[{{ error }}]</div>
             {% endfor %}
-        </p>
-        <p>
+            <br>
             {{ form.password.label }}<br>
             {{ form.password(size=32) }}<br>
             {% for error in form.password.errors %}
-            <span style="color: red;">[{{ error }}]</span>
+            <div class="am-alert am-alert-danger" data-am-alert>[{{ error }}]</div>
             {% endfor %}
-        </p>
-        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-        <p>{{ form.submit() }}</p>
-    </form>
+            <br>
+            <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+            <br>
+            <div class="am-cf">
+                {{ form.submit() }}
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}

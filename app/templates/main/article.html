@@ -2,48 +2,77 @@
 
 {% block head %}
 <link rel="stylesheet" type="text/css"
-      href="{{ url_for('static', filename='css/github.css') }}">
-<link rel="stylesheet" type="text/css"
       href="{{ url_for('static', filename='css/default.css') }}">
 {% endblock head %}
 
 {% block content %}
-    <article class="entry">
+<header class="am-topbar">
+    <h1 class="am-topbar-brand">
+        <a href="#">blog</a>
+    </h1>
 
-        <header class="entry-header">
+    <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+            data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
+            class="am-icon-bars"></span></button>
 
-            <h2 class="entry-title">
-                {{ article.title }}
-            </h2>
+    <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
+        <ul class="am-nav am-nav-pills am-topbar-nav">
+            <li><a href="{{ url_for('main.index') }}">文章</a></li>
+            <li><a href="#">归档</a></li>
+            <li class="am-dropdown" data-am-dropdown>
+                <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+                    分类 <span class="am-icon-caret-down"></span>
+                </a>
+                <ul class="am-dropdown-content">
+                    <!--<li class="am-dropdown-header">标题</li>-->
+                    {% for category in categories %}
+                    <li><a href="#">{{ category.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+        </ul>
 
-        </header>
+        <form class="am-topbar-form am-topbar-left am-form-inline am-topbar-right" role="search">
+            <div class="am-form-group">
+                <input type="text" class="am-form-field am-input-sm" placeholder="搜索文章">
+            </div>
+            <button type="submit" class="am-btn am-btn-default am-btn-sm">搜索</button>
+        </form>
 
-        <div class="entry-content">
-            <p class="lead">
+    </div>
+</header>
+<div class="am-container">
+    <article class="blog-main">
+        <h2 class="am-article-title blog-title">
+            {{ article.title }}
+        </h2>
+        <div class="am-g blog-content">
+            <div class="am-u-lg-7">
                 {{ moment(article.created).fromNow() }}
                 {% if article.content_html %}
                     {{ article.content_html | safe }}
                 {% else %}
                     {{ article.content }}
                 {% endif %}
-            </p>
+            </div>
         </div>
 
-        <ul class="post-nav group">
+        <div class="am-btn-group">
             {% if prev_article %}
-                <li class="prev"><a rel="prev"
-                                    href="{{ url_for('main.article',id =prev_article.id) }}"><strong>前一篇</strong>{{ prev_article.title }}
-                </a></li>
+                <a class="am-btn am-btn-primary am-round" rel="prev"
+                                    href="{{ url_for('main.article',id =prev_article.id) }}"><strong>前一篇 </strong>{{ prev_article.title }}
+                </a>
             {% endif %}
             {% if next_article %}
-                <li class="next"><a rel="next"
-                                    href="{{ url_for('main.article',id =next_article.id) }}"><strong>后一篇</strong> {{ next_article.title }}
-                </a></li>
+                <a class="am-btn am-btn-primary am-round" rel="next"
+                                    href="{{ url_for('main.article',id =next_article.id) }}"><strong>后一篇 </strong> {{ next_article.title }}
+                </a>
             {% endif %}
 
-        </ul>
+        </div>
 
 
     </article>
+</div>
 {% endblock content %}
 

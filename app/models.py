@@ -151,8 +151,11 @@ class Article(db.Model):
     __tablename__ = 'articles'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(256))
+    summary = db.Column(db.Text)
     content = db.Column(db.Text)
     content_html = db.Column(db.Text)
+    # hin = db.Column(db.Integer)
+
     created = db.Column(db.DateTime())
     author_id = db.Column(db.Integer, db.ForeignKey(User.id))
     category_id = db.Column(db.Integer(), db.ForeignKey(Category.id), nullable=False, )
@@ -206,7 +209,6 @@ class Article(db.Model):
         # TODO 有问题
         def _format(_html):
             return do_truncate(do_striptags(_html), length=200)
-
 
 
 db.event.listen(Article.content, 'set', Article.on_change_content)

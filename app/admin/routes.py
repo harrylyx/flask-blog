@@ -62,7 +62,7 @@ class ArticleAdmin(ModelView):
     column_formatters = dict(created=format_datetime)
 
     form_create_rules = (
-        'title', 'category', 'tags', 'content'
+        'title', 'category', 'tags', 'summary', 'content',
     )
     form_edit_rules = form_create_rules
 
@@ -77,6 +77,7 @@ class ArticleAdmin(ModelView):
         title='标题',
         category='分类',
         tags='标签',
+        summary='简介',
         content='正文',
         created='创建时间',
     )
