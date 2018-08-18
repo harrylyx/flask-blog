@@ -23,8 +23,6 @@ def article(id):
     next = next_article(article)
     prev = prev_article(article)
 
-    page = request.args.get('page', 1, type=int)
-
     return render_template('main/article.html', article=article,  category_id=article.category_id, next_article=next,
                            prev_article=prev, endpoint='.article', id=article.id)
 
@@ -65,9 +63,9 @@ def category(id):
         page, per_page=Article.PER_PAGE,
         error_out=False)
     articles = pagination.items
-    return render_template('index.html', articles=articles,
+    return render_template('main/index.html', articles=articles,
                            pagination=pagination, endpoint='.category',
-                           id=id, category_id=id)
+                           id=category.id, category_id=category.id)
 
 
 @bp.route('/tag/<name>/')
@@ -86,7 +84,7 @@ def tag(name):
         page, per_page=Article.PER_PAGE,
         error_out=False)
     articles = pagination.items
-    return render_template('index.html',
+    return render_template('main/index.html',
                            articles=articles,
                            tag=tag,
                            pagination=pagination, endpoint='.index', select_tag=tag)
