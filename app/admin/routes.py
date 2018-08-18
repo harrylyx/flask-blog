@@ -1,3 +1,4 @@
+import time
 import datetime
 from flask import redirect, url_for, render_template, flash, request
 from flask_admin import AdminIndexView, expose
@@ -11,7 +12,13 @@ from wtforms.fields import TextAreaField
 
 
 def format_datetime(self, request, obj, fieldname, *args, **kwargs):
-    return getattr(obj, fieldname).strftime("%Y-%m-%d %H:%M")
+    utc_st = getattr(obj, fieldname)
+    now_stamp = time.time()
+    local_time = datetime.datetime.fromtimestamp(now_stamp)
+    utc_time = datetime.datetime.utcfromtimestamp(now_stamp)
+    offset = local_time - utc_time
+    local_st = utc_st + offset
+    return local_st.strftime("%Y-%m-%d %H:%M")
 
 
 @app.route('/login', methods=['GET', 'POST'])

@@ -82,11 +82,6 @@ class Category(db.Model):
         return self.name
 
 
-article_tags_table = db.Table('article_tags',
-                              db.Column('article_id', db.Integer, db.ForeignKey('articles.id', ondelete='CASCADE')),
-                              db.Column('tag_id', db.Integer, db.ForeignKey('tags.id', ondelete='CASCADE')))
-
-
 class TagQuery(BaseQuery):
 
     def search(self, keyword):
@@ -116,6 +111,11 @@ class Tag(db.Model):
     @property
     def count(self):
         return Article.query.public().filter(Article.tags.any(id=self.id)).count()
+
+
+article_tags_table = db.Table('article_tags',
+                              db.Column('article_id', db.Integer, db.ForeignKey('articles.id', ondelete='CASCADE')),
+                              db.Column('tag_id', db.Integer, db.ForeignKey('tags.id', ondelete='CASCADE')))
 
 
 class ArticleQuery(BaseQuery):
@@ -213,3 +213,4 @@ class Article(db.Model):
 
 db.event.listen(Article.content, 'set', Article.on_change_content)
 db.event.listen(Article, 'before_insert', Article.before_insert)
+
