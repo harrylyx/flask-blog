@@ -6,7 +6,7 @@
         <meta name="description" content="">
         <meta name="keywords" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Welcome to My Blog</title>
+        <title>Cabbge</title>
          <!-- Set render engine for 360 browser -->
         <meta name="renderer" content="webkit">
 
@@ -40,5 +40,16 @@
         <script src=https://cdn.bootcss.com/amazeui/2.7.2/js/amazeui.ie8polyfill.min.js></script>
         <![endif]-->
         <script src=https://cdn.bootcss.com/amazeui/2.7.2/js/amazeui.min.js></script>
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({
+                tex2jax: {
+                    inlineMath: [ ['$', '$'] ],
+                    displayMath: [ ['$$', '$$'], ['$$$', '$$$']],
+                    processEscapes: true,
+                    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+                }
+            });
+        </script>
+        <script async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
     </body>
 </html>

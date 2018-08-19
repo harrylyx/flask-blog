@@ -1,13 +1,45 @@
+{% import 'admin/layout_me.html' as layout_me with context -%}
 {% extends 'admin/base.html' %}
 
-{% block access_control %}
-<div class="btn-group pull-right">
-    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-        <i class="icon-user"></i> {{ current_user.login }} <span class="caret"></span>
-    </a>
-    <ul class="dropdown-menu">
-        <li><a href="{{ url_for('logout') }}">Log out</a></li>
-    </ul>
+{% block head %}
+    <link rel="stylesheet" href="https://cdn.bootcss.com/amazeui/2.7.2/css/amazeui.min.css">
+    <style>
+    body {
+        padding-top: 0px;
+    }
+    </style>
+{% endblock %}
+
+{% block page_body %}
+<header class="am-topbar">
+    <h1 class="am-topbar-brand">
+        <a href="#">后台管理</a>
+    </h1>
+
+    <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+            data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
+            class="am-icon-bars"></span></button>
+
+    <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
+        {% block main_menu %}
+        <ul class="am-nav am-nav-pills am-topbar-nav">
+            {{ layout_me.menu() }}
+        </ul>
+        {% endblock %}
+
+        <div class="am-topbar-right">
+            <a class="am-btn am-btn-primary am-topbar-btn am-btn-sm" href="{{ url_for('logout') }}">登出</a>
+        </div>
+    </div>
+</header>
+<div class="am-container{%if config.get('FLASK_ADMIN_FLUID_LAYOUT', False) %}-fluid{% endif %}">
+    {% block messages %}
+    {{ layout.messages() }}
+    {% endblock %}
+    {# store the jinja2 context for form_rules rendering logic #}
+    {% set render_ctx = h.resolve_ctx() %}
+    {% block body %}{% endblock %}
 </div>
-{% endblock access_control %}
-<h1>欢迎来到后台管理界面</h1>
+
+{% endblock %}
+
