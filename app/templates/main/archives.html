@@ -1,5 +1,10 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% import 'main/_macros.html' as macros %}
+{% block head %}
+<link rel="stylesheet" type="text/css"
+      href="{{ url_for('static', filename='css/amaze_custom.css') }}">
+{% endblock %}
+
 {% block content %}
 <header class="am-topbar">
     <h1 class="am-topbar-brand">
@@ -12,8 +17,8 @@
 
     <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
         <ul class="am-nav am-nav-pills am-topbar-nav">
-            <li class="am-active"><a href="{{ url_for('main.index') }}">文章</a></li>
-            <li><a href="{{ url_for('main.archives') }}">归档</a></li>
+            <li><a href="{{ url_for('main.index') }}">文章</a></li>
+            <li class="am-active"><a href="{{ url_for('main.archives') }}">归档</a></li>
             <li class="am-dropdown" data-am-dropdown>
                 <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
                     分类 <span class="am-icon-caret-down"></span>
@@ -37,14 +42,21 @@
     </div>
 </header>
 <div class="am-container">
-    {% include 'main/_article_list.html' %}
-    {% if articles %}
-        {% if endpoint == '.index' %}
-            {{ macros.pagination_widget(pagination, endpoint) }}
-        {% else %}
-            {{ macros.pagination_widget(pagination, endpoint, id=id) }}
-        {% endif %}
-    {% endif %}
+    <h3>目前共计{{ count }} 篇日志。 继续努力。</h3>
+    <div class="am-panel am-panel-default">
+        <div class="am-panel-hd">
+        {% for y in year %}
+            <h3 class="am-panel-title">{{ y }}</h3>
+        </div>
+        <ul class="am-list am-list-static">
+            {% for i in data[y] %}
+                <li><small class="am-post-meta">{{ i.month_and_day }}</small><a class="post-title-link" href="{{ url_for('main.article', id=i.id) }}" itemprop="url">
+                     <span itemprop="name">{{ i.title }}</span>
+                </a></li>
+            {% endfor %}
+        </ul>
+        {% endfor %}
+    </div>
+    {{ macros.pagination_widget(pagination, endpoint) }}
 </div>
-
 {% endblock %}

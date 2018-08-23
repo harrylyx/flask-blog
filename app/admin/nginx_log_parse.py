@@ -3,8 +3,14 @@ import time
 import json
 import datetime
 import requests
+from collections import namedtuple
 from qqwry import QQwry
 
+
+LOG_PATH = "/root/flaskblog/ipData/flaskblog_access.log"  # 日志文件
+QQWRY_PATH = "/root/flaskblog/ipData/qqwry_lastest.dat"  # 纯真数据库文件
+
+# 匹配日志的正则
 COMBINED_LOGLINE_PAT = re.compile(
 r'(?P<origin>\d+\.\d+\.\d+\.\d+) '+ \
 r'(?P<identd>-|\w*) (?P<auth>-|\w*) '+ \
@@ -13,6 +19,8 @@ r'"(?P<method>\w+) (?P<path>[\S]+) (?P<protocol>[^"]+)" (?P<status>\d+) (?P<byte
 r'( (?P<referrer>"[^"]*")( (?P<client>"[^"]*")( (?P<cookie>"[^"]*"))?)?)?\s*\Z'
 )
 
+
+# 去除BOT的正则
 BOT_TRACES = [
     (re.compile(r".*http://help\.yahoo\.com/help/us/ysearch/slurp.*"),
         "Yahoo robot"),
@@ -40,10 +48,11 @@ BOT_TRACES = [
 
 
 def parse(log_text):
-    '''
+    """
     解析日志
-    return: list[{},{},...]
-    '''
+    :param log_text:log的文件
+    :return:解析的日志list[dict{}, dict{},...]
+    """
     parsed_log_list = [] #保存解析结果的list
 
     for line in log_text:
@@ -72,21 +81,34 @@ class timezone(datetime.tzinfo):
 
 
 def parse_nginx_date(date_str, tz_str):
-    '''格式化时间'''
+    """
+    格式化时间
+    :param date_str:日期的str
+    :param tz_str:时区的str
+    :return:对应的当地时间
+    """
     tt = time.strptime(date_str, "%d/%b/%Y:%H:%M:%S")
     tt = tt[:6] + (0, timezone(tz_str))
     return datetime.datetime(*tt)
 
 
 def get_log_text(filename):
-    '''读取日志文件转成list'''
+    """
+    读取日志转成list
+    :param filename:日志文件
+    :return:返回list
+    """
     log_file = open(filename, 'r')
     log_text = [line for line in log_file] 
     return log_text
 
 
 def bot_check(match_info):
-    '''判断是否是爬虫'''
+    """
+    判断是否是爬虫
+    :param match_info:一条日志文件
+    :return:boolean
+    """
     for pat, botname in BOT_TRACES:
         if pat.match(match_info.group('client')):
             return True
@@ -94,6 +116,13 @@ def bot_check(match_info):
 
 
 def get_address_by_ip(log_line, q, flag):
+    """
+    使用纯真数据库返回ip对应的地理位置
+    :param log_line:一条日志
+    :param q:纯真数据库对象的实例化
+    :param flag:如果失败则换用ip-api
+    :return:str城市名
+    """
     ip = log_line['origin']
     #默认使用纯真ip库
     ip_list = q.lookup(ip)
@@ -108,12 +137,17 @@ def get_address_by_ip(log_line, q, flag):
     return city
 
 
-def main(filename, qqwry_path):
-    result = [] # 结果list
+def get_raw_data():
+    """
+    得到raw_data
+    :return:返回预处理后的数据
+    """
+    filename = LOG_PATH
+    qqwry_path = QQWRY_PATH
+
     ip_dict = {} # 存不重复的ip及其city
     log_text = get_log_text(filename) # 获取日志原始文件
     parsed_log_list = parse(log_text) # 获取解析完的日志
-
 
     #加载纯真ip数据库
     flag = 0
@@ -124,17 +158,36 @@ def main(filename, qqwry_path):
             break
         q.load_file(qqwry_path)
         flag += 1
-    
+
+    raw_data = []
+    Ip_raw_data = namedtuple('ip_data', ['log_time', 'ip', 'referrer', 'client',\
+                                   'method', 'status', 'city'])
     for line in parsed_log_list:
         log_time = parse_nginx_date(line['date']+':'+line['time'], line['tz'])
         log_ip = line['origin']
-        log_referrer = line['referrer']
-        log_client = line['client']
-        log_method = line['method']
-        log_status = line['status']
         if log_ip not in ip_dict:
             ip_dict[log_ip] = get_address_by_ip(line, q, flag)
         log_city = ip_dict[log_ip]
+        raw_data.append(Ip_raw_data(log_time, log_ip, line['referrer'], line['client'],\
+                                    line['method'], line['status'], log_city))
+    return raw_data
+
+
+def get_json_raw_data():
+    """
+    使用json返回raw_data
+    :return: dict{raw_data}
+    """
+    raw_data = get_raw_data()
+    json_raw_data = []
+    for line in raw_data:
+        log_time = line.log_time
+        log_ip = line.ip
+        log_referrer = line.referrer
+        log_client = line.client
+        log_method = line.method
+        log_status = line.status
+        log_city = line.city
         log_dict = {'time': log_time.strftime('%Y-%m-%d %H:%M:%S'), 
                 'ip': log_ip, 
                 'referrer': log_referrer, 
@@ -143,11 +196,45 @@ def main(filename, qqwry_path):
                 'status': log_status,
                 'city': log_city,
         }
-        result.append(log_dict)
-    return json.dumps(result)
+        json_raw_data.append(log_dict)
+        json_raw_data.sort(key=lambda x: x['time'], reverse=True)
+    return json_raw_data
+
+
+def stat_daily_page_view():
+    """
+    统计每天的pv
+    :return:dict{date:cnt}
+    """
+    raw_data = get_raw_data()
+    daily_page_view_dict = {}
+    for line in raw_data:
+        date = line.log_time.strftime('%Y-%m-%d')
+        if date not in daily_page_view_dict:
+            daily_page_view_dict[date] = 0
+        daily_page_view_dict[date] += 1
+    return daily_page_view_dict
+
+
+def stat_daily_user_view():
+    """
+    统计每天的uv
+    :return:dict{date:cnt}
+    """
+    raw_data = get_raw_data()
+    daily_user_view_middle_dict = {}
+    for line in raw_data:
+        date = line.log_time.strftime('%Y-%m-%d')
+        if date not in daily_user_view_middle_dict:
+            daily_user_view_middle_dict[date] = set()
+        daily_user_view_middle_dict[date].add(line.ip)
+    daily_user_view_dict = {}
+    for date in daily_user_view_middle_dict:
+        daily_user_view_dict[date] = len(daily_user_view_middle_dict[date])
+    return daily_user_view_dict
 
 
 if __name__ == '__main__':
-    filename = '/home/cabbage/Documents/blog_log/flaskblog_access.log'
-    qqwry_path = "/home/cabbage/Documents/blog_log/qqwry.dat"
-    print(main(filename, qqwry_path))
+    print(get_json_raw_data())
+    print(stat_daily_page_view())
+    print(stat_daily_user_view())

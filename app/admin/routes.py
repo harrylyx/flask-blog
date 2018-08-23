@@ -1,6 +1,6 @@
 import time
 import datetime
-from flask import redirect, url_for, render_template, flash, request
+from flask import redirect, url_for, render_template, flash, request, jsonify
 from flask_admin import AdminIndexView, expose
 from flask_admin.contrib.sqla import ModelView
 from flask_login import current_user, login_user, logout_user, login_required
@@ -9,6 +9,9 @@ from app import app
 from app.models import User
 from app.admin.forms import LoginForm
 from wtforms.fields import TextAreaField
+from app.admin.nginx_log_parse import get_json_raw_data
+from app.admin.nginx_log_parse import stat_daily_page_view
+from app.admin.nginx_log_parse import stat_daily_user_view
 
 
 def format_datetime(self, request, obj, fieldname, *args, **kwargs):
@@ -43,6 +46,33 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('main.index'))
+
+
+@app.route('/ip_raw_data', methods=['GET'])
+@login_required
+def get_log_ip_raw_data():
+    if not current_user.is_authenticated and current_user.username == "cabbage":
+        return redirect(url_for('login'))
+    result = get_json_raw_data()
+    return jsonify(result)
+
+
+@app.route('/ip_pv', methods=['GET'])
+@login_required
+def get_log_ip_pv():
+    if not current_user.is_authenticated and current_user.username == "cabbage":
+        return redirect(url_for('login'))
+    result = stat_daily_page_view()
+    return jsonify(result)
+
+
+@app.route('/ip_uv', methods=['GET'])
+@login_required
+def get_log_ip_uv():
+    if not current_user.is_authenticated and current_user.username == "cabbage":
+        return redirect(url_for('login'))
+    result = stat_daily_user_view()
+    return jsonify(result)
 
 
 class MyAdminIndexView(AdminIndexView):

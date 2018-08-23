@@ -1,9 +1,85 @@
 {% extends 'admin/master.html' %}
+{% block head %}
+{{ super() }}
+<script src="https://cdn.bootcss.com/echarts/4.1.0.rc2/echarts.min.js"></script>
+{% endblock head %}
 {% block body %}
     {{ super() }}
     <div class="row-fluid">
-        {% if current_user.is_authenticated %}
-            <h1>欢迎来到后台管理系统！</h1>
-        {% endif %}
+        <h1>欢迎来到后台管理系统！</h1>
+        <div id="main" style="width: 600px;height:400px;"></div>
+    </div>
+    <div class="am-scrollable-horizontal">
+        <table class="am-table am-table-bordered am-table-striped am-text-nowrap">
+            <thead>
+                <tr>
+                    <th>IP</th>
+                    <th>Time</th>
+                    <th>City</th>
+                    <th>Client</th>
+                    <th>Referrer</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
     </div>
 {% endblock body %}
+{% block tail_js %}
+{{ super() }}
+<script type="text/javascript">
+    // 准备数据
+    ipPv = $.ajax({url:"/ip_pv",async:false});
+    ipUv = $.ajax({url:"/ip_uv",async:false});
+    ipPvJson = ipPv.responseJSON;
+    ipUvJson = ipUv.responseJSON;
+    source = [['category', 'pv', 'uv']];
+    for(var i in ipPvJson){
+        source.push([i, ipPvJson[i], ipUvJson[i]]);
+    }
+
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    // 指定图表的配置项和数据
+    option = {
+        title: {
+            text: '网站PV与UV监测',
+        },
+        legend: {},
+        tooltip: {},
+        dataset: {
+            // 提供一份数据。
+            source
+        },
+        // 声明一个 X 轴，类目轴（category）。默认情况下，类目轴对应到 dataset 第一列。
+        xAxis: {type: 'category'},
+        // 声明一个 Y 轴，数值轴。
+        yAxis: {},
+        // 声明多个 bar 系列，默认情况下，每个系列会自动对应到 dataset 的每一列。
+        series: [
+            {type: 'line'},
+            {type: 'line'},
+        ]
+    }
+
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+<script type="text/javascript">
+    // 准备数据
+    ipRawData = $.ajax({url:"/ip_raw_data",async:false});
+    ipRawDataJson = ipRawData.responseJSON;
+    tbody = $("tbody");
+    for(var i in ipRawDataJson){
+        var tr = $("<tr><td>"+ipRawDataJson[i].ip+"</td>"+
+                       "<td>"+ipRawDataJson[i].time+"</td>"+
+                       "<td>"+ipRawDataJson[i].city+"</td>"+
+                       "<td>"+ipRawDataJson[i].client+"</td>"+
+                       "<td>"+ipRawDataJson[i].referrer+"</td>"+
+                       "</tr>");
+        tr.appendTo(tbody);
+    }
+</script>
+{% endblock tail_js %}

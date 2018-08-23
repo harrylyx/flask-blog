@@ -179,6 +179,14 @@ class Article(db.Model):
         return url_for('main.article', id=self.id, _external=True)
 
     @property
+    def category_name(self):
+        return Category.query.filter_by(id=self.category_id).first().name
+
+    @property
+    def category_link(self):
+        return url_for('main.category', id=self.category_id, _external=True)
+
+    @property
     def get_next(self):
         _query = db.and_(Article.category_id.in_([self.category.id]),
                          Article.id > self.id)

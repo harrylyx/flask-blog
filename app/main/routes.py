@@ -22,8 +22,8 @@ def article(id):
     article = Article.query.get_or_404(id)
     next = next_article(article)
     prev = prev_article(article)
-
-    return render_template('main/article.html', article=article,  category_id=article.category_id, next_article=next,
+    categories = Category.query.all()
+    return render_template('main/article.html', article=article,  categories=categories, category_id=article.category_id, next_article=next,
                            prev_article=prev, endpoint='.article', id=article.id)
 
 
@@ -63,9 +63,10 @@ def category(id):
         page, per_page=Article.PER_PAGE,
         error_out=False)
     articles = pagination.items
-    return render_template('main/index.html', articles=articles,
+    categories = Category.query.all()
+    return render_template('main/index.html', articles=articles, categories=categories,
                            pagination=pagination, endpoint='.category',
-                           id=category.id, category_id=category.id)
+                           id=id, category_id=id)
 
 
 @bp.route('/tag/<name>/')
@@ -84,7 +85,39 @@ def tag(name):
         page, per_page=Article.PER_PAGE,
         error_out=False)
     articles = pagination.items
+    categories = Category.query.all()
     return render_template('main/index.html',
                            articles=articles,
+                           categories=categories,
                            tag=tag,
                            pagination=pagination, endpoint='.index', select_tag=tag)
+
+
+@bp.route('/archives/')
+def archives():
+    count = Article.query.count()
+    page = request.args.get('page', 1, type=int)
+    pagination = Article.query.order_by(Article.created.desc()).paginate(
+        page, per_page=Article.PER_PAGE,
+        error_out=False
+    )
+    articles = [article for article in pagination.items]
+    categories = Category.query.all()
+    # times = [article.timestamp for article in posts ]
+    year = list(set([i.year for i in articles]))[::-1]
+    data = {}
+    year_article = []
+    for y in year:
+        for p in articles:
+            if y == p.year:
+                year_article.append(p)
+                data[y] = year_article
+        year_article = []
+
+    return render_template('main/archives.html',
+                           articles=articles,
+                           categories=categories,
+                           year=year,
+                           data=data,
+                           count=count,
+                           pagination=pagination, endpoint='.archives')

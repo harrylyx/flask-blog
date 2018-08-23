@@ -3,6 +3,8 @@
 {% block head %}
 <link rel="stylesheet" type="text/css"
       href="{{ url_for('static', filename='css/default.css') }}">
+<link rel="stylesheet" type="text/css"
+      href="{{ url_for('static', filename='css/amaze_custom.css') }}">
 {{moment.include_jquery()}}
 {{moment.include_moment()}}
 <!--使用中文-->
@@ -12,7 +14,7 @@
 {% block content %}
 <header class="am-topbar">
     <h1 class="am-topbar-brand">
-        <a href="#">blog</a>
+        <a href="#">Blog</a>
     </h1>
 
     <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
@@ -22,7 +24,7 @@
     <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
         <ul class="am-nav am-nav-pills am-topbar-nav">
             <li><a href="{{ url_for('main.index') }}">文章</a></li>
-            <li><a href="#">归档</a></li>
+            <li><a href="{{ url_for('main.archives') }}">归档</a></li>
             <li class="am-dropdown" data-am-dropdown>
                 <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
                     分类 <span class="am-icon-caret-down"></span>
@@ -46,21 +48,26 @@
     </div>
 </header>
 <div class="am-container">
-    <article class="blog-main">
+    <article class="am-post">
         <h2 class="am-article-title blog-title">
             {{ article.title }}
         </h2>
-        <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
-        <div class="am-g blog-content">
-            <div class="am-u-lg-7">
-                {{ moment(article.created).format('LLL') }}
-                {% if article.content_html %}
-                    {{ article.content_html | safe }}
-                {% else %}
-                    {{ article.content }}
-                {% endif %}
-            </div>
+        <div class="am-post-meta">{{ moment(article.created).format('YYYY-MM-DD') }}&nbsp;&nbsp;{{ article.category_name }}</div>
+        {% if article.tags %}
+        <div class="am-post-meta">
+            {% for tag in article.tags %}
+                <a href="{{ url_for('main.tag',name =tag.name ) }}" title="" rel="tag">{{ tag.name }}</a>&nbsp;/
+            {% endfor %}
         </div>
+        {% endif %}
+        <hr data-am-widget="divider" style="" class="am-divider am-divider-dashed" />
+        <main class="am-g am-post-content">
+            {% if article.content_html %}
+                {{ article.content_html | safe }}
+            {% else %}
+                {{ article.content }}
+            {% endif %}
+        </main>
 
         <div class="am-btn-group">
             {% if prev_article %}

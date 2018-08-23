@@ -16,6 +16,7 @@
         <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
         <link rel="stylesheet" href="https://cdn.bootcss.com/amazeui/2.7.2/css/amazeui.min.css">
         <script src="https://cdn.bootcss.com/amazeui/2.7.2/js/amazeui.min.js"></script>
+
         {% block head %}{% endblock %}
     </head>
     <body>
@@ -32,7 +33,7 @@
         </footer>
         {% block scripts %}{% endblock %}
         <!--[if (gte IE 9)|!(IE)]><!-->
-        <script src="https://cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+        <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
         <!--<![endif]-->
         <!--[if lte IE 8 ]>
         <script src="https://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
@@ -51,5 +52,8 @@
             });
         </script>
         <script async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+        <script>
+            $("img").addClass("am-img-responsive")
+        </script>
     </body>
 </html>
