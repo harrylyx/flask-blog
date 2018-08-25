@@ -4,9 +4,22 @@
         <h2 class="am-article-title blog-title">
             {{ article.title }}
         </h2>
+        <div class="am-post-meta">{{ moment(article.created).format('YYYY-MM-DD') }}&nbsp;&nbsp;{{ article.category_name }}</div>
+        {% if article.tags %}
+        <div class="am-post-meta">
+            {% for tag in article.tags %}
+                <a href="{{ url_for('main.tag',name =tag.name ) }}" title="" rel="tag">{{ tag.name }}</a>&nbsp;/
+            {% endfor %}
+        </div>
+        {% endif %}
+        <hr data-am-widget="divider" style="" class="am-divider am-divider-dashed" />
         <div class="am-g am-g-fixed">
             <p>
-                {{ article.summary | safe }}
+                {% if article.content_html %}
+                    {{ article.content_html | safe | truncate(800, True) }}
+                {% else %}
+                    {{ article.content | truncate(1000, True) }}
+                {% endif %}
             {% if article.has_more %}<p><a href="{{ article.link }}" rel="nofollow">阅读更多...</a>{% endif %}
             </p>
         </div>
@@ -15,6 +28,5 @@
           阅读全文 »
         </a>
     </article> <!-- end entry -->
-    <hr class="am-article-divider">
     {% endfor %}
 {#</ul>#}

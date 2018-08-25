@@ -69,17 +69,17 @@
 </script>
 <script type="text/javascript">
     // 准备数据
-    ipRawData = $.ajax({url:"/ip_raw_data",async:false});
-    ipRawDataJson = ipRawData.responseJSON;
-    tbody = $("tbody");
-    for(var i in ipRawDataJson){
-        var tr = $("<tr><td>"+ipRawDataJson[i].ip+"</td>"+
-                       "<td>"+ipRawDataJson[i].time+"</td>"+
-                       "<td>"+ipRawDataJson[i].city+"</td>"+
-                       "<td>"+ipRawDataJson[i].client+"</td>"+
-                       "<td>"+ipRawDataJson[i].referrer+"</td>"+
-                       "</tr>");
-        tr.appendTo(tbody);
-    }
+    // ipRawData = $.ajax({url:"/ip_raw_data",async:false});
+    // ipRawDataJson = ipRawData.responseJSON;
+    // tbody = $("tbody");
+    // for(var i in ipRawDataJson){
+    //     var tr = $("<tr><td>"+ipRawDataJson[i].ip+"</td>"+
+    //                    "<td>"+ipRawDataJson[i].time+"</td>"+
+    //                    "<td>"+ipRawDataJson[i].city+"</td>"+
+    //                    "<td>"+ipRawDataJson[i].client+"</td>"+
+    //                    "<td>"+ipRawDataJson[i].referrer+"</td>"+
+    //                    "</tr>");
+    //     tr.appendTo(tbody);
+    // }
 </script>
 {% endblock tail_js %}

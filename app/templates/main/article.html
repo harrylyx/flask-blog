@@ -5,10 +5,7 @@
       href="{{ url_for('static', filename='css/default.css') }}">
 <link rel="stylesheet" type="text/css"
       href="{{ url_for('static', filename='css/amaze_custom.css') }}">
-{{moment.include_jquery()}}
-{{moment.include_moment()}}
-<!--使用中文-->
-{{moment.lang('zh-CN')}}
+
 {% endblock head %}
 
 {% block content %}

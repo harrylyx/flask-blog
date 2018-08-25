@@ -7,8 +7,11 @@ from collections import namedtuple
 from qqwry import QQwry
 
 
-LOG_PATH = "/share/flaskblog_access.log"  # 日志文件
-QQWRY_PATH = "/share/qqwry_lastest.dat"  # 纯真数据库文件
+LOG_PATH = "/home/cabbage/Documents/blog_log/flaskblog_access.log"  # 日志文件
+QQWRY_PATH = "/home/cabbage/Documents/blog_log/qqwry_lastest.dat"  # 纯真数据库文件
+
+# LOG_PATH = "/share/flaskblog_access.log"  # 日志文件
+# QQWRY_PATH = "/share/qqwry_lastest.dat"  # 纯真数据库文件
 
 # 匹配日志的正则
 COMBINED_LOGLINE_PAT = re.compile(
