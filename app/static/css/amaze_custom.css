@@ -1,8 +1,16 @@
-.am-post-meta{
-    color: #999;
-}
 body {
-    background-color: #F4F4F4;
+    background-color: #fefefe;
+    color: #353535;
+    border-top: 3px solid #ED6A5A;
+}
+a {
+    color: #ED6A5A;
+}
+article{
+    padding: 0 10px;
+}
+.blog-main a:focus, a:hover {
+    border-bottom: 1px solid #9BC1BC;;
 }
 .blog-main{
     background-color: #fff;
@@ -11,4 +19,85 @@ body {
     margin: 10px 10px 20px;
     padding: 30px 20px;
 }
-
+.am-post-meta{
+    color: #999;
+}
+.post-nav{
+    margin: 1em 0;
+    display:flex;
+    justify-content:space-between;
+    margin-top: 20px;
+    font-family: Athelas,STHeiti,Microsoft Yahei,serif;
+}
+.prev,.next{
+    color: #353535;
+    font-weight: 600;
+    font-size: 18px;
+    font-family: Athelas,STHeiti,Microsoft Yahei,serif;
+    -webkit-transition-property: -webkit-transform;
+    transition-property: -webkit-transform;
+    transition-property: transform;
+    transition-property: transform,-webkit-transform;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+    -webkit-transition-duration: .3s;
+    transition-duration: .3s;
+}
+.prev:hover {
+    color: #ED6A5A;
+    -webkit-transform: translateX(-4px);
+    -ms-transform: translateX(-4px);
+    transform: translateX(-4px);
+}
+.next:hover {
+    color: #ED6A5A;
+    -webkit-transform: translateX(4px);
+    -ms-transform: translateX(4px);
+    transform: translateX(4px);
+}
+.am-more{
+    font-weight: 600;
+    font-size: 18px;
+}
+.am-topbar a:focus, a:hover {
+    color: #9BC1BC;
+    border-bottom: none;
+}
+.am-topbar-nav>li.am-active>a,.am-topbar-nav>li.am-active>a:focus,.am-topbar-nav>li.am-active>a:hover {
+    border-radius: 0;
+    color: #ED6A5A;
+    background: 0 0
+}
+.am-topbar-nav>li.am-active>a:after {
+    opacity: 0;
+    border-bottom-color: #ED6A5A;
+}
+.am-topbar-nav>li>a:hover:after {
+    opacity: 0;
+    border-bottom-color: #666;
+}
+.am-topbar {
+    position: relative;
+    min-height: 50px;
+    margin-bottom: 1.6rem;
+    background: none;
+    border-width: 0 0 1px;
+    border-style: none;
+    border-color: #ddd;
+    color: #666;
+    padding: 20px 0;
+}
+.am-topbar h1{
+    font-size: 48px;
+    float: left;
+}
+.am-topbar div{
+    float: right;
+}
+.am-nav>li>a:focus, .am-nav>li>a:hover {
+    text-decoration: none;
+    background-color: rgba(0,0,0,0);
+}
+.post-title-link{
+    padding: 10px;
+}

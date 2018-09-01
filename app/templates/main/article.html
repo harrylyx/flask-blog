@@ -1,50 +1,38 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<link rel="stylesheet" type="text/css"
-      href="{{ url_for('static', filename='css/default.css') }}">
+
 <link rel="stylesheet" type="text/css"
       href="{{ url_for('static', filename='css/amaze_custom.css') }}">
 
 {% endblock head %}
 
 {% block content %}
-<header class="am-topbar">
-    <h1 class="am-topbar-brand">
-        <a href="#">Blog</a>
-    </h1>
-
-    <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
-            data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
-            class="am-icon-bars"></span></button>
-
-    <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
-        <ul class="am-nav am-nav-pills am-topbar-nav">
-            <li><a href="{{ url_for('main.index') }}">文章</a></li>
-            <li><a href="{{ url_for('main.archives') }}">归档</a></li>
-            <li class="am-dropdown" data-am-dropdown>
-                <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
-                    分类 <span class="am-icon-caret-down"></span>
-                </a>
-                <ul class="am-dropdown-content">
-                    <!--<li class="am-dropdown-header">标题</li>-->
-                    {% for category in categories %}
-                    <li><a href="#">{{ category.name }}</a></li>
-                    {% endfor %}
-                </ul>
-            </li>
-        </ul>
-
-        <form class="am-topbar-form am-topbar-left am-form-inline am-topbar-right" role="search">
-            <div class="am-form-group">
-                <input type="text" class="am-form-field am-input-sm" placeholder="搜索文章">
-            </div>
-            <button type="submit" class="am-btn am-btn-default am-btn-sm">搜索</button>
-        </form>
-
-    </div>
-</header>
 <div class="am-container">
+    <header class="am-topbar">
+        <h1 class="am-topbar-brand">
+            <a href="{{ url_for('main.index') }}">Cabbage</a>
+        </h1>
+        <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
+            <ul class="am-nav am-nav-pills am-topbar-nav">
+                <li><a href="{{ url_for('main.index') }}">文章</a></li>
+                <li><a href="{{ url_for('main.archives') }}">归档</a></li>
+                <li class="am-dropdown" data-am-dropdown>
+                    <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+                        分类 <span class="am-icon-caret-down"></span>
+                    </a>
+                    <ul class="am-dropdown-content">
+                        <!--<li class="am-dropdown-header">标题</li>-->
+                        {% for category in categories %}
+                        <li><a href="#">{{ category.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+    </header>
+
     <article class="am-post">
         <h2 class="am-article-title blog-title">
             {{ article.title }}
@@ -65,21 +53,21 @@
                 {{ article.content }}
             {% endif %}
         </main>
-
-        <div class="am-btn-group">
+        <nav class="post-nav">
             {% if prev_article %}
-                <a class="am-btn am-btn-primary am-round" rel="prev"
-                                    href="{{ url_for('main.article',id =prev_article.id) }}"><strong>前一篇 </strong>{{ prev_article.title }}
+
+                <a class="prev" rel="prev" href="{{ url_for('main.article',id =prev_article.id) }}">
+                    <span class="am-icon-chevron-left"></span>
+                    <span>{{ prev_article.title }}</span>
                 </a>
             {% endif %}
             {% if next_article %}
-                <a class="am-btn am-btn-primary am-round" rel="next"
-                                    href="{{ url_for('main.article',id =next_article.id) }}"><strong>后一篇 </strong> {{ next_article.title }}
+                <a class="next" rel="next" href="{{ url_for('main.article',id =next_article.id) }}">
+                    <span>{{ next_article.title }}</span>
+                    <span class="am-icon-chevron-right"></span>
                 </a>
             {% endif %}
-
-        </div>
-
+        </nav>
 
     </article>
 </div>
