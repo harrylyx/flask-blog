@@ -10,7 +10,7 @@ article{
     padding: 0 10px;
 }
 .blog-main a:focus, a:hover {
-    border-bottom: 1px solid #9BC1BC;;
+    border-bottom: 1px solid #9BC1BC;
 }
 .blog-main{
     background-color: #fff;
@@ -100,4 +100,12 @@ article{
 }
 .post-title-link{
     padding: 10px;
+}
+.am-topbar-btn{
+    background-color: #ED6A5A;
+    border: #ED6A5A;
+}
+.am-topbar-btn:active, .am-topbar-btn:hover{
+    background-color: #9BC1BC;
+    border: #9BC1BC;
 }
