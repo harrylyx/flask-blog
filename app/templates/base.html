@@ -6,13 +6,13 @@
         <meta name="description" content="">
         <meta name="keywords" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Cabbge</title>
          <!-- Set render engine for 360 browser -->
         <meta name="renderer" content="webkit">
-
         <!-- No Baidu Siteapp-->
         <meta http-equiv="Cache-Control" content="no-siteapp"/>
-
+        {% block head %}
+            <title>Cabbge</title>
+        {% endblock %}
         <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
         <link rel="stylesheet" href="https://cdn.bootcss.com/amazeui/2.7.2/css/amazeui.min.css">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/amaze_custom.css') }}">
@@ -24,7 +24,7 @@
         {{moment.include_moment()}}
         <!--使用中文-->
         {{moment.lang('zh-CN')}}
-        {% block head %}{% endblock %}
+
     </head>
     <body>
 

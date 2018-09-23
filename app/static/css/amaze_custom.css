@@ -109,3 +109,9 @@ article{
     background-color: #9BC1BC;
     border: #9BC1BC;
 }
+blockquote {
+    margin: 1em 3em;
+    padding: .5em 1em;
+    border-left: 5px solid #ED6A5A;
+    background-color: #ed6a5a0f;
+}
