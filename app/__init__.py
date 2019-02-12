@@ -1,4 +1,3 @@
-import os
 from flask import Flask
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
@@ -19,6 +18,9 @@ app.register_blueprint(main_bp)
 
 from app.errors import bp as errors_bp
 app.register_blueprint(errors_bp)
+
+from app.templates import bp as templates_bp
+app.register_blueprint(templates_bp)
 
 # admin
 from .admin import admin

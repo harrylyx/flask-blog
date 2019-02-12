@@ -20,7 +20,17 @@
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
         <!--<![endif]-->
         <script src="https://cdn.jsdelivr.net/npm/amazeui@2.7.2/dist/js/amazeui.min.js"></script>
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/animate/animate.css') }}">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/select2/select2.min.css') }}">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/perfect-scrollbar/perfect-scrollbar.css') }}">
+        <!--===============================================================================================-->
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/default.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/util.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+        <!--===============================================================================================-->
         {{moment.include_moment()}}
         <!--使用中文-->
         {{moment.lang('zh-CN')}}
@@ -58,7 +68,12 @@
         </script>
         <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
         <script>
-            $("img").addClass("am-img-responsive")
+            $("img").addClass("am-img-responsive");
+            $("table").prev().after('<div class="table100 ver4 m-t-10 m-b-10">');
+            $('.table100').append($("table"));
+            $("table").attr("data-vertable","ver4");
+            $("tr").addClass("row100");
+            $("tr").first().addClass("head");
         </script>
     </body>
 </html>

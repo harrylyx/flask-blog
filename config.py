@@ -1,4 +1,5 @@
 import os
+
 basedir = 'mysql+pymysql://root:lyx15lyx@localhost:3306/blog'
 
 class Config(object):

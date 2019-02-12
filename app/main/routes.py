@@ -121,3 +121,4 @@ def archives():
                            data=data,
                            count=count,
                            pagination=pagination, endpoint='.archives')
+

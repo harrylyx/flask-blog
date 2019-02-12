@@ -16,9 +16,9 @@
         <div class="am-g am-g-fixed">
             <p>
                 {% if article.content_html %}
-                    {{ article.content_html | safe | truncate(800, True) }}
+                    {{ article.content_html | safe | get_summary }}
                 {% else %}
-                    {{ article.content | truncate(1000, True) }}
+                    {{ article.content |  get_summary }}
                 {% endif %}
             {% if article.has_more %}<p><a href="{{ article.link }}" rel="nofollow">阅读更多...</a>{% endif %}
             </p>
