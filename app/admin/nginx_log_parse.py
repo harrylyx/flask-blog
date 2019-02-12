@@ -176,15 +176,22 @@ def get_raw_data():
     return raw_data
 
 
-def get_json_raw_data():
+def get_json_raw_data(mdate=None):
     """
-    使用json返回raw_data
+    使用json返回指定日期的raw_data,为空为当天
+    :param: mdate, 'YYYY-MM-DD'
     :return: dict{raw_data}
     """
+    today = datetime.datetime.today()
+    zero_today = datetime.datetime(today.year, today.month, today.day, 0, 0, 0)
+    zero_today = datetime.datetime.strptime(mdate, '%Y-%m-%d') if mdate else zero_today
+    zero_tomorrow = datetime.datetime(zero_today.year, zero_today.month, zero_today.day+1, 0, 0, 0)
     raw_data = get_raw_data()
     json_raw_data = []
     for line in raw_data:
         log_time = line.log_time
+        if log_time < zero_today or log_time >= zero_tomorrow:
+            continue
         log_ip = line.ip
         log_referrer = line.referrer
         log_client = line.client
@@ -204,30 +211,42 @@ def get_json_raw_data():
     return json_raw_data
 
 
-def stat_daily_page_view():
+def stat_daily_page_view(mdate=None):
     """
-    统计每天的pv
+    统计指定某月每天的pv,为空为当月
+    :param:  mdate, 'YYYY-MM'
     :return:dict{date:cnt}
     """
+    today = datetime.datetime.today()
+    this_month = datetime.datetime.strptime(mdate, '%Y-%m').month if mdate else today.month
     raw_data = get_raw_data()
     daily_page_view_dict = {}
     for line in raw_data:
-        date = line.log_time.strftime('%Y-%m-%d')
+        log_time = line.log_time
+        if log_time.month != this_month:
+            continue
+        date = log_time.strftime('%Y-%m-%d')
         if date not in daily_page_view_dict:
             daily_page_view_dict[date] = 0
         daily_page_view_dict[date] += 1
     return daily_page_view_dict
 
 
-def stat_daily_user_view():
+def stat_daily_user_view(mdate=None):
     """
-    统计每天的uv
+    统计指定某月每天的uv,为空为当月
+    :param:  mdate, 'YYYY-MM'
     :return:dict{date:cnt}
     """
+    today = datetime.datetime.today()
+    this_month = datetime.datetime.strptime(mdate, '%Y-%m').month if mdate else today.month
     raw_data = get_raw_data()
     daily_user_view_middle_dict = {}
     for line in raw_data:
-        date = line.log_time.strftime('%Y-%m-%d')
+        log_time = line.log_time
+        if log_time.month != this_month:
+            continue
+        date = log_time.strftime('%Y-%m-%d')
         if date not in daily_user_view_middle_dict:
             daily_user_view_middle_dict[date] = set()
         daily_user_view_middle_dict[date].add(line.ip)
