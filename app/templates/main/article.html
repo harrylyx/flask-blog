@@ -2,10 +2,11 @@
 
 {% block head %}
 
-<link rel="stylesheet" type="text/css"
-      href="{{ url_for('static', filename='css/amaze_custom.css') }}">
-<link rel="stylesheet" type="text/css"
-      href="{{ url_for('static', filename='css/auto-number-title.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/auto-number-title.css') }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
 <title>{{ article.title }}</title>
 {% endblock head %}
 
@@ -16,7 +17,7 @@
             <a href="{{ url_for('main.index') }}">Cabbage</a>
         </h1>
         <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
-                data-am-collapse="{target: '#doc-topbar-collapse'}">
+            data-am-collapse="{target: '#doc-topbar-collapse'}">
             <span class="am-sr-only">导航切换</span>
             <span class="am-icon-bars"></span>
         </button>
@@ -44,44 +45,60 @@
         <h2 class="am-article-title blog-title">
             {{ article.title }}
         </h2>
-        <div class="am-post-meta">{{ moment(article.created).format('YYYY-MM-DD') }}&nbsp;&nbsp;{{ article.category_name }}</div>
+        <div class="am-post-meta">
+            {{ moment(article.created).format('YYYY-MM-DD') }}&nbsp;&nbsp;{{ article.category_name }}</div>
         {% if article.tags %}
         <div class="am-post-meta">
             {% for tag in article.tags %}
-                <a href="{{ url_for('main.tag',name =tag.name ) }}" title="" rel="tag">{{ tag.name }}</a>&nbsp;/
+            <a href="{{ url_for('main.tag',name =tag.name ) }}" title="" rel="tag">{{ tag.name }}</a>&nbsp;/
             {% endfor %}
         </div>
         {% endif %}
         <hr data-am-widget="divider" style="" class="am-divider am-divider-dashed" />
         <main class="am-g am-post-content">
             {% if article.content_html %}
-                {{ article.content_html | safe }}
+            {{ article.content_html | safe }}
             {% else %}
-                {{ article.content }}
+            {{ article.content }}
             {% endif %}
-            <div data-am-widget="gotop" class="am-gotop am-gotop-fixed" >
+            <div data-am-widget="gotop" class="am-gotop am-gotop-fixed">
                 <a href="#top" title="回到顶部">
                     <span class="am-gotop-title">回到顶部</span>
-                      <i class="am-icon-angle-double-up am-icon-lg"></i>
+                    <i class="am-icon-angle-double-up am-icon-lg"></i>
                 </a>
             </div>
         </main>
+        <div id="gitalk-container"></div>
         <nav class="post-nav">
             {% if prev_article %}
 
-                <a class="prev" rel="prev" href="{{ url_for('main.article',id =prev_article.id) }}">
-                    <span class="am-icon-chevron-left"></span>
-                    <span>{{ prev_article.title }}</span>
-                </a>
+            <a class="prev" rel="prev" href="{{ url_for('main.article',id =prev_article.id) }}">
+                <span class="am-icon-chevron-left"></span>
+                <span>{{ prev_article.title }}</span>
+            </a>
             {% endif %}
             {% if next_article %}
-                <a class="next" rel="next" href="{{ url_for('main.article',id =next_article.id) }}">
-                    <span>{{ next_article.title }}</span>
-                    <span class="am-icon-chevron-right"></span>
-                </a>
+            <a class="next" rel="next" href="{{ url_for('main.article',id =next_article.id) }}">
+                <span>{{ next_article.title }}</span>
+                <span class="am-icon-chevron-right"></span>
+            </a>
             {% endif %}
         </nav>
     </article>
 </div>
 {% endblock content %}
+{% block scripts %}
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: 'd0945766176fef31e9ad',
+        clientSecret: 'b00257e0c08d85624825b4e3a6ede290d017282e',
+        repo: 'flask-blog',
+        owner: 'harrylyx',
+        admin: ['harrylyx'],
+        id: window.location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    })
 
+    gitalk.render('gitalk-container')
+</script>
+{% endblock %}
