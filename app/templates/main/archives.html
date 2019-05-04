@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
 {% import 'main/_macros.html' as macros %}
 {% block head %}
-<link rel="stylesheet" type="text/css"
-      href="{{ url_for('static', filename='css/amaze_custom.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/amaze_custom.css') }}">
 <title>归档</title>
 {% endblock %}
 
@@ -13,7 +12,7 @@
             <a href="{{ url_for('main.index') }}">Cabbage</a>
         </h1>
         <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
-                data-am-collapse="{target: '#doc-topbar-collapse'}">
+            data-am-collapse="{target: '#doc-topbar-collapse'}">
             <span class="am-sr-only">导航切换</span>
             <span class="am-icon-bars"></span>
         </button>
@@ -36,21 +35,22 @@
         </div>
     </header>
     <article>
-    <h3>目前共计{{ count }} 篇日志。 继续努力。</h3>
+        <h3>目前共计{{ count }} 篇日志。 继续努力。</h3>
+        {% for y in year %}
         <div class="am-panel am-panel-default">
             <div class="am-panel-hd">
-            {% for y in year %}
                 <h3 class="am-panel-title">{{ y }}</h3>
             </div>
             <ul class="am-list am-list-static">
                 {% for i in data[y] %}
-                    <li><small class="am-post-meta">{{ i.month_and_day }}</small><span class="post-title-link" itemprop="name"><a href="{{ url_for('main.article', id=i.id) }}" itemprop="url">
-                        {{ i.title }}</a></span>
+                <li><small class="am-post-meta">{{ i.month_and_day }}</small><span class="post-title-link"
+                        itemprop="name"><a href="{{ url_for('main.article', id=i.id) }}" itemprop="url">
+                            {{ i.title }}</a></span>
                     </a></li>
                 {% endfor %}
             </ul>
-            {% endfor %}
         </div>
+        {% endfor %}
         {{ macros.pagination_widget(pagination, endpoint) }}
     </article>
 </div>

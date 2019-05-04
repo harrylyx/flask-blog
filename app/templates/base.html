@@ -1,62 +1,66 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="description" content="">
-        <meta name="keywords" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-         <!-- Set render engine for 360 browser -->
-        <meta name="renderer" content="webkit">
-        <!-- No Baidu Siteapp-->
-        <meta http-equiv="Cache-Control" content="no-siteapp"/>
-        {% block head %}
-            <title>Cabbge</title>
-        {% endblock %}
-        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/amazeui@2.7.2/dist/css/amazeui.min.css">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/amaze_custom.css') }}">
-        <!--[if (gte IE 9)|!(IE)]><!-->
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
-        <!--<![endif]-->
-        <script src="https://cdn.jsdelivr.net/npm/amazeui@2.7.2/dist/js/amazeui.min.js"></script>
-        <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/animate/animate.css') }}">
-        <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/select2/select2.min.css') }}">
-        <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/perfect-scrollbar/perfect-scrollbar.css') }}">
-        <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/default.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/util.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
-        <!--===============================================================================================-->
-        {{moment.include_moment()}}
-        <!--使用中文-->
-        {{moment.lang('zh-CN')}}
 
-    </head>
-    <body>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit">
+    <!-- No Baidu Siteapp-->
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    {% block head %}
+    <title>Cabbge</title>
+    {% endblock %}
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/amazeui@2.7.2/dist/css/amazeui.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/amaze_custom.css') }}">
+    <!--[if (gte IE 9)|!(IE)]><!-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <!--<![endif]-->
+    <script src="https://cdn.jsdelivr.net/npm/amazeui@2.7.2/dist/js/amazeui.min.js"></script>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/animate/animate.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/select2/select2.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css"
+        href="{{ url_for('static', filename='vendor/perfect-scrollbar/perfect-scrollbar.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/default.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/util.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+SC|Roboto+Mono" rel="stylesheet">
+    <!--===============================================================================================-->
+    {{moment.include_moment()}}
+    <!--使用中文-->
+    {{moment.lang('zh-CN')}}
 
-        {% block content %}{% endblock %}
-        <br>
-        <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
-        <footer data-am-widget="footer" class="am-footer am-footer-one am-no-layout" data-am-footer="{  }">
-            <div class="am-footer-miscs">
-                <p>Power by <a href="http://flask.pocoo.org/" title="Flask" target="_blank" class="">Flask</a>
-                </p>
-                <a href="http://www.miitbeian.gov.cn/" target="_blank" title="渝ICP备16005335号-1">渝ICP备16005335号-1</a>
-                </div>
-        </footer>
-        {% block scripts %}{% endblock %}
+</head>
 
-        <!--[if lte IE 8 ]>
+<body>
+
+    {% block content %}{% endblock %}
+    <br>
+    <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+    <footer data-am-widget="footer" class="am-footer am-footer-one am-no-layout" data-am-footer="{  }">
+        <div class="am-footer-miscs">
+            <p>Power by <a href="http://flask.pocoo.org/" title="Flask" target="_blank" class="">Flask</a>
+            </p>
+            <a href="http://www.miitbeian.gov.cn/" target="_blank" title="渝ICP备16005335号-1">渝ICP备16005335号-1</a>
+        </div>
+    </footer>
+    {% block scripts %}{% endblock %}
+
+    <!--[if lte IE 8 ]>
         <script src="https://cdn.jsdelivr.net/npm/jquery@1.11.3/dist/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/modernizr@3.6.0/src/Modernizr.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/amazeui@2.7.2/dist/js/amazeui.ie8polyfill.min.js"></script>
         <![endif]-->
-        <script src="https://cdn.jsdelivr.net/npm/amazeui@2.7.2/dist/js/amazeui.min.js"></script>
-        <script type="text/x-mathjax-config">
+    <script src="https://cdn.jsdelivr.net/npm/amazeui@2.7.2/dist/js/amazeui.min.js"></script>
+    <script type="text/x-mathjax-config">
             MathJax.Hub.Config({
                 tex2jax: {
                     inlineMath: [ ['$', '$'] ],
@@ -66,14 +70,15 @@
                 }
             });
         </script>
-        <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
-        <script>
-            $("img").addClass("am-img-responsive");
-            $("table").prev().after('<div class="table100 ver4 m-t-10 m-b-10">');
-            $('.table100').append($("table"));
-            $("table").attr("data-vertable","ver4");
-            $("tr").addClass("row100");
-            $("tr").first().addClass("head");
-        </script>
-    </body>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+    <script>
+        $("img").addClass("am-img-responsive");
+        $("table").prev().after('<div class="table100 ver4 m-t-10 m-b-10">');
+        $('.table100').append($("table"));
+        $("table").attr("data-vertable", "ver4");
+        $("tr").addClass("row100");
+        $("tr").first().addClass("head");
+    </script>
+</body>
+
 </html>

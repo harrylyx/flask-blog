@@ -1,0 +1,45 @@
+/* reset h2 counter to -1 when meet a h1 element */
+main h1 {
+    counter-reset: h2Counter -1;
+}
+
+/* insert number before h2 element */
+main h2:before {
+    content: counter(h2Counter)'. '
+}
+/* increase h2 counter and reset h3 counter when meet a h2 element */
+main h2 {
+    counter-increment: h2Counter;
+    counter-reset: h3Counter;
+}
+
+main h3:before {
+    content: counter(h2Counter) '.' counter(h3Counter) ' '
+}
+main h3 {
+    counter-increment: h3Counter;
+    counter-reset: h4Counter;
+}
+
+main h4:before {
+    content: counter(h2Counter) '.' counter(h3Counter) '.' counter(h4Counter) ' '
+}
+main h4 {
+    counter-increment: h4Counter;
+    counter-reset: h5Counter;
+}
+
+main h5:before {
+    content: counter(h2Counter) '.' counter(h3Counter) '.' counter(h4Counter) '.' counter(h5Counter) ' '
+}
+main h5 {
+    counter-increment: h5Counter;
+    counter-reset: h6Counter;
+}
+
+main h6:before {
+    content: counter(h2Counter) '.' counter(h3Counter) '.' counter(h4Counter) '.' counter(h5Counter) '.' counter(h6Counter) ' '
+}
+main h6 {
+    counter-increment: h6Counter;
+}

@@ -1,3 +1,12 @@
+
+# models.py
+# @author Cabbage
+# @description
+# @created 2019-05-01T20:54:05.919Z+08:00
+# @last-modified 2019-05-04T16:10:40.321Z+08:00
+#
+
+
 import re
 from functools import reduce
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -6,16 +15,25 @@ from flask import url_for
 from flask_sqlalchemy import BaseQuery
 from jinja2.filters import do_striptags, do_truncate
 from markdown import markdown
+from markdown.extensions import Extension
+from markdown.extensions.codehilite import CodeHiliteExtension
 from app import db, login
 
 pattern_hasmore = re.compile(r'<!--more-->', re.I)
+
+
+class MyExtension(CodeHiliteExtension):
+    def __init__(self, **kwargs):
+        self.config = {'linenums': [True,
+                                    "Use lines numbers. True=yes, False=no, None=auto"], }
+        super(MyExtension, self).__init__(**kwargs)
 
 
 def markitup(text):
     """
     把Markdown转换为HTML
     """
-    exts = ['markdown.extensions.extra', 'markdown.extensions.codehilite', \
+    exts = ['markdown.extensions.extra', MyExtension(),
             'markdown.extensions.tables', 'markdown.extensions.toc']
     ret = markdown(text, extensions=exts)
     return ret
@@ -114,7 +132,8 @@ class Tag(db.Model):
 
 
 article_tags_table = db.Table('article_tags',
-                              db.Column('article_id', db.Integer, db.ForeignKey('articles.id', ondelete='CASCADE')),
+                              db.Column('article_id', db.Integer, db.ForeignKey(
+                                  'articles.id', ondelete='CASCADE')),
                               db.Column('tag_id', db.Integer, db.ForeignKey('tags.id', ondelete='CASCADE')))
 
 
@@ -158,8 +177,10 @@ class Article(db.Model):
 
     created = db.Column(db.DateTime())
     author_id = db.Column(db.Integer, db.ForeignKey(User.id))
-    category_id = db.Column(db.Integer(), db.ForeignKey(Category.id), nullable=False, )
-    tags = db.relationship(Tag, secondary=article_tags_table, backref=db.backref("articles"))
+    category_id = db.Column(db.Integer(), db.ForeignKey(
+        Category.id), nullable=False, )
+    tags = db.relationship(Tag, secondary=article_tags_table,
+                           backref=db.backref("articles"))
 
     __mapper_args__ = {'order_by': [id.desc()]}
 
@@ -209,7 +230,6 @@ class Article(db.Model):
 
         value = target.content
 
-
     @staticmethod
     def on_change_content(target, value, oldvalue, initiator):
         target.content_html = markitup(value)
@@ -221,4 +241,3 @@ class Article(db.Model):
 
 db.event.listen(Article.content, 'set', Article.on_change_content)
 db.event.listen(Article, 'before_insert', Article.before_insert)
-
