@@ -152,3 +152,34 @@ code {
 code, kbd, pre, samp {
     font-family: 'Roboto Mono', Monaco,Menlo,Consolas,"Courier New",FontAwesome,monospace;
 }
+
+#toc {
+    position: fixed;
+    left: 55%;
+    top: 20%;
+    margin-left: 400px;
+    border-left: 1px solid #dddddd;
+}
+
+#toc ul,ol{
+    list-style: none;
+    margin-left: 1em;
+    padding-left: 0em;
+}
+
+#toc li{
+    list-style: none;
+    padding-left: 0em;
+}
+
+#toc a{
+    color: #cccccc;
+}
+
+#toc .active a{
+    color: #ED6A5A;
+}
+
+#toc a:hover{
+    color: #ED6A5A;
+}

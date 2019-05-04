@@ -11,9 +11,6 @@
     <meta name="renderer" content="webkit">
     <!-- No Baidu Siteapp-->
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    {% block head %}
-    <title>Cabbge</title>
-    {% endblock %}
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/amazeui@2.7.2/dist/css/amazeui.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/amaze_custom.css') }}">
@@ -32,12 +29,33 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/default.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/util.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+    <!-- 字体 -->
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+SC|Roboto+Mono" rel="stylesheet">
     <!--===============================================================================================-->
-    {{moment.include_moment()}}
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/min/moment-with-locales.min.js"></script>
+    <script type="text/javascript">
+        moment.locale("en");
+        function flask_moment_render(elem) {
+            $(elem).text(eval('moment("' + $(elem).data('timestamp') + '").' + $(elem).data('format') + ';'));
+            $(elem).removeClass('flask-moment').show();
+        }
+        function flask_moment_render_all() {
+            $('.flask-moment').each(function () {
+                flask_moment_render(this);
+                if ($(this).data('refresh')) {
+                    (function (elem, interval) { setInterval(function () { flask_moment_render(elem) }, interval); })(this, $(this).data('refresh'));
+                }
+            })
+        }
+        $(document).ready(function () {
+            flask_moment_render_all();
+        });
+    </script>
     <!--使用中文-->
     {{moment.lang('zh-CN')}}
-
+    {% block head %}
+    <title>Cabbge</title>
+    {% endblock %}
 </head>
 
 <body>
@@ -59,7 +77,9 @@
         <script src="https://cdn.jsdelivr.net/npm/modernizr@3.6.0/src/Modernizr.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/amazeui@2.7.2/dist/js/amazeui.ie8polyfill.min.js"></script>
         <![endif]-->
+    <!-- 主UI -->
     <script src="https://cdn.jsdelivr.net/npm/amazeui@2.7.2/dist/js/amazeui.min.js"></script>
+    <!-- mathjax -->
     <script type="text/x-mathjax-config">
             MathJax.Hub.Config({
                 tex2jax: {
@@ -71,7 +91,8 @@
             });
         </script>
     <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
-    <script>
+    <!-- 替换表格css -->
+    <script type="text/javascript">
         $("img").addClass("am-img-responsive");
         $("table").prev().after('<div class="table100 ver4 m-t-10 m-b-10">');
         $('.table100').append($("table"));

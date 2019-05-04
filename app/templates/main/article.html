@@ -4,7 +4,11 @@
 
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/auto-number-title.css') }}">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<!-- 实现评论框 -->
 <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<!-- 实现侧边目录 -->
+<script src="https://cdn.jsdelivr.net/npm/components-jqueryui@1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.tocify@1.9.1/src/javascripts/jquery.tocify.min.js"></script>
 
 
 <title>{{ article.title }}</title>
@@ -42,9 +46,9 @@
     </header>
 
     <article class="am-post">
-        <h2 class="am-article-title blog-title">
+        <h1 class="am-article-title blog-title">
             {{ article.title }}
-        </h2>
+        </h1>
         <div class="am-post-meta">
             {{ moment(article.created).format('YYYY-MM-DD') }}&nbsp;&nbsp;{{ article.category_name }}</div>
         {% if article.tags %}
@@ -68,6 +72,7 @@
                 </a>
             </div>
         </main>
+        <div id="toc"></div>
         <div id="gitalk-container"></div>
         <nav class="post-nav">
             {% if prev_article %}
@@ -88,6 +93,16 @@
 </div>
 {% endblock content %}
 {% block scripts %}
+<!-- 配置及生成目录 -->
+<script type="text/javascript">
+    var toc = $("#toc").tocify({
+        selectors: "h2,h3,h4,h5", // 选择要筛选的标题
+        extendPage: false, // 页面不够长时拉长页面，这里选择关闭因为感觉留出大片空白不好看- -
+        highlightDefault: false // 自动高亮第一条
+    });
+</script>
+
+<!-- gitalk -->
 <script type="text/javascript">
     var gitalk = new Gitalk({
         clientID: 'd0945766176fef31e9ad',
@@ -101,4 +116,5 @@
 
     gitalk.render('gitalk-container')
 </script>
+
 {% endblock %}
