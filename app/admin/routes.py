@@ -9,9 +9,9 @@ from app import app
 from app.models import User
 from app.admin.forms import LoginForm
 from wtforms.fields import TextAreaField
-from app.admin.nginx_log_parse import get_json_raw_data
-from app.admin.nginx_log_parse import stat_daily_page_view
-from app.admin.nginx_log_parse import stat_daily_user_view
+from app.utils.nginx_log_parse import get_json_raw_data
+from app.utils.nginx_log_parse import stat_daily_page_view
+from app.utils.nginx_log_parse import stat_daily_user_view
 
 
 def format_datetime(self, request, obj, fieldname, *args, **kwargs):
@@ -177,4 +177,3 @@ class TagAdmin(ModelView):
         if current_user.is_authenticated and current_user.username == "cabbage":
             return True
         return False
-
