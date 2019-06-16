@@ -2,7 +2,7 @@
 # @author Cabbage
 # @description
 # @created 2019-05-01T20:54:05.919Z+08:00
-# @last-modified 2019-06-16T22:41:24.599Z+08:00
+# @last-modified 2019-06-16T23:33:27.453Z+08:00
 #
 
 
@@ -26,10 +26,10 @@ pattern_hasmore = re.compile(r'<!--more-->', re.I)
 class MyInlineLexer(InlineLexer):
     def enable_delete_em(self):
         self.rules.double_emphasis = re.compile(
-            r'^\*{2}([\s\S]+?)\*{2}(?!\*)'  # **word**
+            r'\*{2}([\s\S]+?)\*{2}(?!\*)'  # **word**
         )
         self.rules.emphasis = re.compile(
-            r'^\*((?:\*\*|[^\*])+?)\*(?!\*)'  # *word*
+            r'\@((?:\*\*|[^\*])+?)\@(?!\*)'  # @word@
         )
         self.default_rules.insert(3, 'double_emphasis')
         self.default_rules.insert(3, 'emphasis')

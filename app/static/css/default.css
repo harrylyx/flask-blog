@@ -219,3 +219,165 @@
   background-color: rgba(255,235,59,.5)
 }
 
+.codehilite .o,.codehilite .ow,.md-typeset .codehilite .o,.md-typeset .codehilite .ow {
+  color: inherit
+}
+
+.codehilite .ge,.md-typeset .codehilite .ge {
+  color: #000
+}
+
+.codehilite .gr,.md-typeset .codehilite .gr {
+  color: #a00
+}
+
+.codehilite .gh,.md-typeset .codehilite .gh {
+  color: #999
+}
+
+.codehilite .go,.md-typeset .codehilite .go {
+  color: #888
+}
+
+.codehilite .gp,.md-typeset .codehilite .gp {
+  color: #555
+}
+
+.codehilite .gs,.md-typeset .codehilite .gs {
+  color: inherit
+}
+
+.codehilite .gu,.md-typeset .codehilite .gu {
+  color: #aaa
+}
+
+.codehilite .gt,.md-typeset .codehilite .gt {
+  color: #a00
+}
+
+.codehilite .gd,.md-typeset .codehilite .gd {
+  background-color: #fdd
+}
+
+.codehilite .gi,.md-typeset .codehilite .gi {
+  background-color: #dfd
+}
+
+.codehilite .k,.md-typeset .codehilite .k {
+  color: #3b78e7
+}
+
+.codehilite .kc,.md-typeset .codehilite .kc {
+  color: #a71d5d
+}
+
+.codehilite .kd,.codehilite .kn,.md-typeset .codehilite .kd,.md-typeset .codehilite .kn {
+  color: #3b78e7
+}
+
+.codehilite .kp,.md-typeset .codehilite .kp {
+  color: #a71d5d
+}
+
+.codehilite .kr,.codehilite .kt,.md-typeset .codehilite .kr,.md-typeset .codehilite .kt {
+  color: #3e61a2
+}
+
+.codehilite .c,.codehilite .cm,.md-typeset .codehilite .c,.md-typeset .codehilite .cm {
+  color: #999
+}
+
+.codehilite .cp,.md-typeset .codehilite .cp {
+  color: #666
+}
+
+.codehilite .c1,.codehilite .ch,.codehilite .cs,.md-typeset .codehilite .c1,.md-typeset .codehilite .ch,.md-typeset .codehilite .cs {
+  color: #999
+}
+
+.codehilite .na,.codehilite .nb,.md-typeset .codehilite .na,.md-typeset .codehilite .nb {
+  color: #c2185b
+}
+
+.codehilite .bp,.md-typeset .codehilite .bp {
+  color: #3e61a2
+}
+
+.codehilite .nc,.md-typeset .codehilite .nc {
+  color: #c2185b
+}
+
+.codehilite .no,.md-typeset .codehilite .no {
+  color: #3e61a2
+}
+
+.codehilite .nd,.codehilite .ni,.md-typeset .codehilite .nd,.md-typeset .codehilite .ni {
+  color: #666
+}
+
+.codehilite .ne,.codehilite .nf,.md-typeset .codehilite .ne,.md-typeset .codehilite .nf {
+  color: #c2185b
+}
+
+.codehilite .nl,.md-typeset .codehilite .nl {
+  color: #3b5179
+}
+
+.codehilite .nn,.md-typeset .codehilite .nn {
+  color: #ec407a
+}
+
+.codehilite .nt,.md-typeset .codehilite .nt {
+  color: #3b78e7
+}
+
+.codehilite .nv,.codehilite .vc,.codehilite .vg,.codehilite .vi,.md-typeset .codehilite .nv,.md-typeset .codehilite .vc,.md-typeset .codehilite .vg,.md-typeset .codehilite .vi {
+  color: #3e61a2
+}
+
+.codehilite .nx,.md-typeset .codehilite .nx {
+  color: #ec407a
+}
+
+.codehilite .il,.codehilite .m,.codehilite .mf,.codehilite .mh,.codehilite .mi,.codehilite .mo,.md-typeset .codehilite .il,.md-typeset .codehilite .m,.md-typeset .codehilite .mf,.md-typeset .codehilite .mh,.md-typeset .codehilite .mi,.md-typeset .codehilite .mo {
+  color: #e74c3c
+}
+
+.codehilite .s,.codehilite .sb,.codehilite .sc,.md-typeset .codehilite .s,.md-typeset .codehilite .sb,.md-typeset .codehilite .sc {
+  color: #0d904f
+}
+
+.codehilite .sd,.md-typeset .codehilite .sd {
+  color: #999
+}
+
+.codehilite .s2,.md-typeset .codehilite .s2 {
+  color: #0d904f
+}
+
+.codehilite .se,.codehilite .sh,.codehilite .si,.codehilite .sx,.md-typeset .codehilite .se,.md-typeset .codehilite .sh,.md-typeset .codehilite .si,.md-typeset .codehilite .sx {
+  color: #183691
+}
+
+.codehilite .sr,.md-typeset .codehilite .sr {
+  color: #009926
+}
+
+.codehilite .s1,.codehilite .ss,.md-typeset .codehilite .s1,.md-typeset .codehilite .ss {
+  color: #0d904f
+}
+
+.codehilite .err,.md-typeset .codehilite .err {
+  color: #a61717
+}
+
+.codehilite .w,.md-typeset .codehilite .w {
+  color: transparent
+}
+
+.codehilite .hll,.md-typeset .codehilite .hll {
+  display: block;
+  margin: 0 -.6rem;
+  padding: 0 .6rem;
+  background-color: rgba(255,235,59,.5)
+}
