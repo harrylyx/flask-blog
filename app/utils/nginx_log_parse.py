@@ -47,6 +47,8 @@ BOT_TRACES = [
         "semrush robot"),
     (re.compile(r".*\+http://www\.sogou\.com/docs/help/.*"),
         "sogou robot"),
+    (re.compile(r".*\+http://ahrefs\.com/robot/.*"),
+        "AhrefsBot"),
 ]
 
 

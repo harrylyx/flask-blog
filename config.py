@@ -1,6 +1,7 @@
 import os
 
-basedir = 'mysql+pymysql://lab:lablab@192.168.1.130:3306/blog'
+basedir = 'mysql+pymysql://lab:lablab@192.168.1.101:3306/blog'
+
 
 class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
@@ -13,4 +14,3 @@ class Config(object):
     MAIL_PASSWORD = "your-password"
     ADMINS = ['your-email@163.com']
     POSTS_PER_PAGE = 25
-

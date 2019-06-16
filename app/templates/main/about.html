@@ -1,18 +1,5 @@
 {% extends 'base.html' %}
-
-{% block head %}
-
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/auto-number-title.css') }}">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-<!-- 实现评论框 -->
-<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-<!-- 实现侧边目录 -->
-<script src="https://cdn.jsdelivr.net/npm/components-jqueryui@1.12.1/jquery-ui.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery.tocify@1.9.1/src/javascripts/jquery.tocify.min.js"></script>
-
-
-<title>{{ article.title }}</title>
-{% endblock head %}
+{% import 'main/_macros.html' as macros %}
 
 {% block content %}
 <div class="am-container">
@@ -48,24 +35,44 @@
 
     <article class="am-post">
         <h1 class="am-article-title blog-title">
-            {{ article.title }}
+            关于我
         </h1>
-        <div class="am-post-meta">
-            {{ moment(article.created).format('YYYY-MM-DD') }}&nbsp;&nbsp;{{ article.category_name }}</div>
-        {% if article.tags %}
-        <div class="am-post-meta">
-            {% for tag in article.tags %}
-            <a href="{{ url_for('main.tag',name =tag.name ) }}" title="" rel="tag">{{ tag.name }}</a>&nbsp;/
-            {% endfor %}
-        </div>
-        {% endif %}
+
         <hr data-am-widget="divider" style="" class="am-divider am-divider-dashed" />
         <main class="am-g am-post-content">
-            {% if article.content_html %}
-            {{ article.content_html | safe }}
-            {% else %}
-            {{ article.content }}
-            {% endif %}
+            <p>双非小硕一名，在机器学习的路上费力挣扎着，目前正在努力补基础、打比赛中，</p>
+
+            <h2>联系我</h2>
+
+            <ul>
+                <li>Email：harrylyx#qq.com</li>
+                <li>QQ：467270182</li>
+                <li>Github：<a href="https://github.com/harrylyx">harrylyx</a></li>
+            </ul>
+
+            <h2>站在巨人的肩膀上</h2>
+
+            <ul>
+                <li><a href="http://flask.pocoo.org/">Flask</a>，作为后端框架</li>
+                <li><a href="http://jinja.pocoo.org/docs/2.10/">Jinja2</a>，作为后端模板渲染引擎</li>
+                <li><a href="https://github.com/lepture/mistune">mistune</a>，后端渲染Markdown转HTML</li>
+                <li><a href="https://github.com/animalize/qqwry-python3">qqwry</a>，作为后端IP查询工具</li>
+                <li><a href="http://amazeui.org">Amaze-UI</a>，作为整个前端的UI框架</li>
+                <li><a href="https://echarts.baidu.com/">Echarts.js</a>，用于渲染后台监控数据</li>
+                <li><a href="https://github.com/moment/moment">Moment.js</a>，用于国际化时间</li>
+                <li><a href="https://github.com/gitalk/gitalk">gitalk</a>，实现评论功能</li>
+                <li><a href="https://github.com/gfranko/jquery.tocify.js">jquery.tocify.js</a>，实现自动生成文章目录</li>
+                <li><a href="https://pandao.github.io/editor.md/">Editor.md</a>，后台Markdown编辑</li>
+                <li>字体使用<a href="https://fonts.google.com/">Google字体</a></li>
+                <li>CDN使用<a href="https://www.jsdelivr.com/">jsdelivr</a></li>
+                <li>图床使用<a href="https://sm.ms">sm.ms</a></li>
+            </ul>
+
+            <h2>我的小伙伴们</h2>
+
+            <p><a href="https://orchingly.com">Lany</a></p>
+
+            <p><a href="https://slane.cn/">SlaneYang&#39;s Blog</a></p>
             <div data-am-widget="gotop" class="am-gotop am-gotop-fixed">
                 <a href="#top" title="回到顶部">
                     <span class="am-gotop-title">回到顶部</span>

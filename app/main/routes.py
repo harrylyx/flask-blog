@@ -122,3 +122,7 @@ def archives():
                            count=count,
                            pagination=pagination, endpoint='.archives')
 
+
+@bp.route('/about', methods=['GET'])
+def about():
+    return render_template('main/about.html')

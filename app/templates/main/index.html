@@ -7,7 +7,7 @@
             <a href="{{ url_for('main.index') }}">Cabbage</a>
         </h1>
         <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
-                data-am-collapse="{target: '#doc-topbar-collapse'}">
+            data-am-collapse="{target: '#doc-topbar-collapse'}">
             <span class="am-sr-only">导航切换</span>
             <span class="am-icon-bars"></span>
         </button>
@@ -26,16 +26,17 @@
                         {% endfor %}
                     </ul>
                 </li>
+                <li><a href="{{ url_for('main.about') }}">关于我</a></li>
             </ul>
         </div>
     </header>
     {% include 'main/_article_list.html' %}
     {% if articles %}
-        {% if endpoint == '.index' %}
-            {{ macros.pagination_widget(pagination, endpoint) }}
-        {% else %}
-            {{ macros.pagination_widget(pagination, endpoint, id=id) }}
-        {% endif %}
+    {% if endpoint == '.index' %}
+    {{ macros.pagination_widget(pagination, endpoint) }}
+    {% else %}
+    {{ macros.pagination_widget(pagination, endpoint, id=id) }}
+    {% endif %}
     {% endif %}
 </div>
 

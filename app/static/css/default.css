@@ -1,10 +1,10 @@
-/* For codehilite */
-.codehilitetable, .linenos {
+/* For highlight */
+.highlighttable, .linenos {
     background: #2d2d2d;
     color: #f2f0ec;
 }
 
-.codehilitetable {
+.highlighttable {
     font: 12px/20px "Source Code Pro",monospace;
     overflow-x: auto;
     display: block;
@@ -13,11 +13,11 @@
     padding: .8em 0;
 }
 
-.codehilitetable tbody tr {
+.highlighttable tbody tr {
     display: block;
 }
 
-.codehilitetable pre {
+.highlighttable pre {
     display: block;
     margin: 0;
     padding: 0;
@@ -36,7 +36,7 @@
     color: #747369;
 }
 
-.codehilitetable, .linenos {
+.highlighttable, .linenos {
     background: #2d2d2d;
     color: #f2f0ec;
 }
@@ -56,163 +56,163 @@
 }
 
 
-.codehilite .o,.codehilite .ow,.md-typeset .highlight .o,.md-typeset .highlight .ow {
+.highlight .o,.highlight .ow,.md-typeset .highlight .o,.md-typeset .highlight .ow {
   color: inherit
 }
 
-.codehilite .ge,.md-typeset .highlight .ge {
+.highlight .ge,.md-typeset .highlight .ge {
   color: #000
 }
 
-.codehilite .gr,.md-typeset .highlight .gr {
+.highlight .gr,.md-typeset .highlight .gr {
   color: #a00
 }
 
-.codehilite .gh,.md-typeset .highlight .gh {
+.highlight .gh,.md-typeset .highlight .gh {
   color: #999
 }
 
-.codehilite .go,.md-typeset .highlight .go {
+.highlight .go,.md-typeset .highlight .go {
   color: #888
 }
 
-.codehilite .gp,.md-typeset .highlight .gp {
+.highlight .gp,.md-typeset .highlight .gp {
   color: #555
 }
 
-.codehilite .gs,.md-typeset .highlight .gs {
+.highlight .gs,.md-typeset .highlight .gs {
   color: inherit
 }
 
-.codehilite .gu,.md-typeset .highlight .gu {
+.highlight .gu,.md-typeset .highlight .gu {
   color: #aaa
 }
 
-.codehilite .gt,.md-typeset .highlight .gt {
+.highlight .gt,.md-typeset .highlight .gt {
   color: #a00
 }
 
-.codehilite .gd,.md-typeset .highlight .gd {
+.highlight .gd,.md-typeset .highlight .gd {
   background-color: #fdd
 }
 
-.codehilite .gi,.md-typeset .highlight .gi {
+.highlight .gi,.md-typeset .highlight .gi {
   background-color: #dfd
 }
 
-.codehilite .k,.md-typeset .highlight .k {
+.highlight .k,.md-typeset .highlight .k {
   color: #3b78e7
 }
 
-.codehilite .kc,.md-typeset .highlight .kc {
+.highlight .kc,.md-typeset .highlight .kc {
   color: #a71d5d
 }
 
-.codehilite .kd,.codehilite .kn,.md-typeset .highlight .kd,.md-typeset .highlight .kn {
+.highlight .kd,.highlight .kn,.md-typeset .highlight .kd,.md-typeset .highlight .kn {
   color: #3b78e7
 }
 
-.codehilite .kp,.md-typeset .highlight .kp {
+.highlight .kp,.md-typeset .highlight .kp {
   color: #a71d5d
 }
 
-.codehilite .kr,.codehilite .kt,.md-typeset .highlight .kr,.md-typeset .highlight .kt {
+.highlight .kr,.highlight .kt,.md-typeset .highlight .kr,.md-typeset .highlight .kt {
   color: #3e61a2
 }
 
-.codehilite .c,.codehilite .cm,.md-typeset .highlight .c,.md-typeset .highlight .cm {
+.highlight .c,.highlight .cm,.md-typeset .highlight .c,.md-typeset .highlight .cm {
   color: #999
 }
 
-.codehilite .cp,.md-typeset .highlight .cp {
+.highlight .cp,.md-typeset .highlight .cp {
   color: #666
 }
 
-.codehilite .c1,.codehilite .ch,.codehilite .cs,.md-typeset .highlight .c1,.md-typeset .highlight .ch,.md-typeset .highlight .cs {
+.highlight .c1,.highlight .ch,.highlight .cs,.md-typeset .highlight .c1,.md-typeset .highlight .ch,.md-typeset .highlight .cs {
   color: #999
 }
 
-.codehilite .na,.codehilite .nb,.md-typeset .highlight .na,.md-typeset .highlight .nb {
+.highlight .na,.highlight .nb,.md-typeset .highlight .na,.md-typeset .highlight .nb {
   color: #c2185b
 }
 
-.codehilite .bp,.md-typeset .highlight .bp {
+.highlight .bp,.md-typeset .highlight .bp {
   color: #3e61a2
 }
 
-.codehilite .nc,.md-typeset .highlight .nc {
+.highlight .nc,.md-typeset .highlight .nc {
   color: #c2185b
 }
 
-.codehilite .no,.md-typeset .highlight .no {
+.highlight .no,.md-typeset .highlight .no {
   color: #3e61a2
 }
 
-.codehilite .nd,.codehilite .ni,.md-typeset .highlight .nd,.md-typeset .highlight .ni {
+.highlight .nd,.highlight .ni,.md-typeset .highlight .nd,.md-typeset .highlight .ni {
   color: #666
 }
 
-.codehilite .ne,.codehilite .nf,.md-typeset .highlight .ne,.md-typeset .highlight .nf {
+.highlight .ne,.highlight .nf,.md-typeset .highlight .ne,.md-typeset .highlight .nf {
   color: #c2185b
 }
 
-.codehilite .nl,.md-typeset .highlight .nl {
+.highlight .nl,.md-typeset .highlight .nl {
   color: #3b5179
 }
 
-.codehilite .nn,.md-typeset .highlight .nn {
+.highlight .nn,.md-typeset .highlight .nn {
   color: #ec407a
 }
 
-.codehilite .nt,.md-typeset .highlight .nt {
+.highlight .nt,.md-typeset .highlight .nt {
   color: #3b78e7
 }
 
-.codehilite .nv,.codehilite .vc,.codehilite .vg,.codehilite .vi,.md-typeset .highlight .nv,.md-typeset .highlight .vc,.md-typeset .highlight .vg,.md-typeset .highlight .vi {
+.highlight .nv,.highlight .vc,.highlight .vg,.highlight .vi,.md-typeset .highlight .nv,.md-typeset .highlight .vc,.md-typeset .highlight .vg,.md-typeset .highlight .vi {
   color: #3e61a2
 }
 
-.codehilite .nx,.md-typeset .highlight .nx {
+.highlight .nx,.md-typeset .highlight .nx {
   color: #ec407a
 }
 
-.codehilite .il,.codehilite .m,.codehilite .mf,.codehilite .mh,.codehilite .mi,.codehilite .mo,.md-typeset .highlight .il,.md-typeset .highlight .m,.md-typeset .highlight .mf,.md-typeset .highlight .mh,.md-typeset .highlight .mi,.md-typeset .highlight .mo {
+.highlight .il,.highlight .m,.highlight .mf,.highlight .mh,.highlight .mi,.highlight .mo,.md-typeset .highlight .il,.md-typeset .highlight .m,.md-typeset .highlight .mf,.md-typeset .highlight .mh,.md-typeset .highlight .mi,.md-typeset .highlight .mo {
   color: #e74c3c
 }
 
-.codehilite .s,.codehilite .sb,.codehilite .sc,.md-typeset .highlight .s,.md-typeset .highlight .sb,.md-typeset .highlight .sc {
+.highlight .s,.highlight .sb,.highlight .sc,.md-typeset .highlight .s,.md-typeset .highlight .sb,.md-typeset .highlight .sc {
   color: #0d904f
 }
 
-.codehilite .sd,.md-typeset .highlight .sd {
+.highlight .sd,.md-typeset .highlight .sd {
   color: #999
 }
 
-.codehilite .s2,.md-typeset .highlight .s2 {
+.highlight .s2,.md-typeset .highlight .s2 {
   color: #0d904f
 }
 
-.codehilite .se,.codehilite .sh,.codehilite .si,.codehilite .sx,.md-typeset .highlight .se,.md-typeset .highlight .sh,.md-typeset .highlight .si,.md-typeset .highlight .sx {
+.highlight .se,.highlight .sh,.highlight .si,.highlight .sx,.md-typeset .highlight .se,.md-typeset .highlight .sh,.md-typeset .highlight .si,.md-typeset .highlight .sx {
   color: #183691
 }
 
-.codehilite .sr,.md-typeset .highlight .sr {
+.highlight .sr,.md-typeset .highlight .sr {
   color: #009926
 }
 
-.codehilite .s1,.codehilite .ss,.md-typeset .highlight .s1,.md-typeset .highlight .ss {
+.highlight .s1,.highlight .ss,.md-typeset .highlight .s1,.md-typeset .highlight .ss {
   color: #0d904f
 }
 
-.codehilite .err,.md-typeset .highlight .err {
+.highlight .err,.md-typeset .highlight .err {
   color: #a61717
 }
 
-.codehilite .w,.md-typeset .highlight .w {
+.highlight .w,.md-typeset .highlight .w {
   color: transparent
 }
 
-.codehilite .hll,.md-typeset .highlight .hll {
+.highlight .hll,.md-typeset .highlight .hll {
   display: block;
   margin: 0 -.6rem;
   padding: 0 .6rem;

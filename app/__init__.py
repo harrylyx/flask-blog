@@ -1,3 +1,11 @@
+
+# __init__.py
+# @author Cabbage
+# @description 
+# @created 2019-05-01T20:54:05.913Z+08:00
+# @last-modified 2019-06-16T22:23:51.348Z+08:00
+#
+
 from flask import Flask
 from config import Config
 from flask_sqlalchemy import SQLAlchemy

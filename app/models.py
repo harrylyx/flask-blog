@@ -2,7 +2,7 @@
 # @author Cabbage
 # @description
 # @created 2019-05-01T20:54:05.919Z+08:00
-# @last-modified 2019-05-11T20:33:08.599Z+08:00
+# @last-modified 2019-06-16T22:22:38.573Z+08:00
 #
 
 
@@ -13,28 +13,55 @@ from flask_login import UserMixin
 from flask import url_for
 from flask_sqlalchemy import BaseQuery
 from jinja2.filters import do_striptags, do_truncate
-from markdown import markdown
-from markdown.extensions import Extension
-from markdown.extensions.codehilite import CodeHiliteExtension
+import mistune
+from mistune import Renderer, InlineGrammar, InlineLexer
+from pygments import highlight
+from pygments.lexers import get_lexer_by_name
+from pygments.formatters import html
 from app import db, login
 
 pattern_hasmore = re.compile(r'<!--more-->', re.I)
 
 
-class MyExtension(CodeHiliteExtension):
-    def __init__(self, **kwargs):
-        self.config = {'linenums': [True,
-                                    "Use lines numbers. True=yes, False=no, None=auto"], }
-        super(MyExtension, self).__init__(**kwargs)
+class MyInlineLexer(InlineLexer):
+    def enable_delete_em(self):
+        self.rules.double_emphasis = re.compile(
+            r'^\*{2}([\s\S]+?)\*{2}(?!\*)'  # **word**
+        )
+        self.rules.emphasis = re.compile(
+            r'^\*((?:\*\*|[^\*])+?)\*(?!\*)'  # *word*
+        )
+        self.default_rules.insert(3, 'double_emphasis')
+        self.default_rules.insert(3, 'emphasis')
+
+    def output_double_emphasis(self, m):
+        text = m.group(1)
+        return self.renderer.double_emphasis(text)
+
+    def output_emphasis(self, m):
+        text = m.group(1)
+        return self.renderer.emphasis(text)
+
+
+class MyRenderer(Renderer):
+    def block_code(self, code, lang):
+        if not lang:
+            return '\n<pre><code>%s</code></pre>\n' % \
+                mistune.escape(code)
+        lexer = get_lexer_by_name(lang, stripall=True)
+        formatter = html.HtmlFormatter()
+        return highlight(code, lexer, formatter)
 
 
 def markitup(text):
     """
     把Markdown转换为HTML
     """
-    exts = ['markdown.extensions.extra', MyExtension(),
-            'markdown.extensions.tables', 'markdown.extensions.toc']
-    ret = markdown(text, extensions=exts)
+    renderer = MyRenderer()
+    inline = MyInlineLexer(renderer)
+    inline.enable_delete_em()
+    markdown = mistune.Markdown(renderer=renderer, inline=inline)
+    ret = markdown(text)
     return ret
 
 
@@ -240,3 +267,19 @@ class Article(db.Model):
 
 db.event.listen(Article.content, 'set', Article.on_change_content)
 db.event.listen(Article, 'before_insert', Article.before_insert)
+
+
+class Log(db.Model):
+
+    __tablename__ = 'access_logs'
+    id = db.Column(db.Integer, primary_key=True)
+    log_time = db.Column(db.DateTime())
+    ip = db.Column(db.String(256))
+    referrer = db.Column(db.Text)
+    client = db.Column(db.Text)
+    method = db.Column(db.String(10))
+    status = db.Column(db.String(10))
+    city = db.Column(db.String(256))
+
+    def __repr__(self):
+        return '<Log %r>' % (self.ip)
