@@ -1,5 +1,17 @@
 {% extends 'base.html' %}
-{% import 'main/_macros.html' as macros %}
+{% block head %}
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/auto-number-title.css') }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<!-- 实现评论框 -->
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<!-- 实现侧边目录 -->
+<script src="https://cdn.jsdelivr.net/npm/components-jqueryui@1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.tocify@1.9.1/src/javascripts/jquery.tocify.min.js"></script>
+
+
+<title>关于我</title>
+{% endblock head %}
 
 {% block content %}
 <div class="am-container">
