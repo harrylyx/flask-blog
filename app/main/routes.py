@@ -1,6 +1,7 @@
-from flask import render_template, request
+from flask import render_template, request, make_response
 from app.models import Article, Category, Tag
 from . import bp
+import os
 
 
 @bp.route('/', methods=['GET', 'POST'])
@@ -126,3 +127,12 @@ def archives():
 @bp.route('/about', methods=['GET'])
 def about():
     return render_template('main/about.html')
+
+
+@bp.route('/<path>')
+def today(path):
+    base_dir = os.path.dirname(os.path.dirname(__file__)) + "/static"
+    print(base_dir)
+    resp = make_response(open(os.path.join(base_dir,path)).read())
+    resp.headers["Content-type"]="text/plan;charset=UTF-8"
+    return resp

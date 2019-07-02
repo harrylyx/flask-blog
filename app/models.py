@@ -2,7 +2,7 @@
 # @author Cabbage
 # @description
 # @created 2019-05-01T20:54:05.919Z+08:00
-# @last-modified 2019-06-16T23:33:27.453Z+08:00
+# @last-modified 2019-06-18T10:21:12.687Z+08:00
 #
 
 
@@ -21,6 +21,7 @@ from pygments.formatters import html
 from app import db, login
 
 pattern_hasmore = re.compile(r'<!--more-->', re.I)
+
 
 
 class MyInlineLexer(InlineLexer):
