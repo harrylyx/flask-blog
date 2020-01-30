@@ -14,6 +14,7 @@ def index():
                                          error_out=False)
     articles = pagination.items
     categories = Category.query.all()
+    return render_template('main/end.html')
     return render_template('main/index.html', articles=articles, categories=categories,
                            pagination=pagination, endpoint='main.index')
 
@@ -24,6 +25,7 @@ def article(id):
     next = next_article(article)
     prev = prev_article(article)
     categories = Category.query.all()
+    return render_template('main/end.html')
     return render_template('main/article.html', article=article,  categories=categories, category_id=article.category_id, next_article=next,
                            prev_article=prev, endpoint='.article', id=article.id)
 
@@ -52,6 +54,7 @@ def prev_article(article):
     articles = [article for article in article_list]
     if articles[-1] != article:
         prev_article = articles[articles.index(article) + 1]
+
         return prev_article
     return None
 
@@ -65,6 +68,8 @@ def category(id):
         error_out=False)
     articles = pagination.items
     categories = Category.query.all()
+
+    return render_template('main/end.html')
     return render_template('main/index.html', articles=articles, categories=categories,
                            pagination=pagination, endpoint='.category',
                            id=id, category_id=id)
@@ -87,6 +92,8 @@ def tag(name):
         error_out=False)
     articles = pagination.items
     categories = Category.query.all()
+
+    return render_template('main/end.html')
     return render_template('main/index.html',
                            articles=articles,
                            categories=categories,
@@ -115,6 +122,8 @@ def archives():
                 data[y] = year_article
         year_article = []
 
+    return render_template('main/end.html')
+
     return render_template('main/archives.html',
                            articles=articles,
                            categories=categories,
@@ -126,13 +135,13 @@ def archives():
 
 @bp.route('/about', methods=['GET'])
 def about():
-    return render_template('main/about.html')
+    return render_template('main/end.html')
 
 
 @bp.route('/<path>')
 def today(path):
     base_dir = os.path.dirname(os.path.dirname(__file__)) + "/static"
     print(base_dir)
-    resp = make_response(open(os.path.join(base_dir,path)).read())
-    resp.headers["Content-type"]="text/plan;charset=UTF-8"
+    resp = make_response(open(os.path.join(base_dir, path)).read())
+    resp.headers["Content-type"] = "text/plan;charset=UTF-8"
     return resp

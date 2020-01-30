@@ -23,7 +23,6 @@ from app import db, login
 pattern_hasmore = re.compile(r'<!--more-->', re.I)
 
 
-
 class MyInlineLexer(InlineLexer):
     def enable_delete_em(self):
         self.rules.double_emphasis = re.compile(

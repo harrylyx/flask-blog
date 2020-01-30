@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block head %}
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/auto-number-title.css') }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<!-- 实现评论框 -->
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<!-- 实现侧边目录 -->
+<script src="https://cdn.jsdelivr.net/npm/components-jqueryui@1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.tocify@1.9.1/src/javascripts/jquery.tocify.min.js"></script>
+
+
+<title>本网站已迁移</title>
+{% endblock head %}
+
+{% block content %}
+<div class="am-container">
+    <header class="am-topbar">
+        <h1 class="am-topbar-brand">
+            <a href="{{ url_for('main.index') }}">Cabbage</a>
+        </h1>
+    </header>
+
+    <article class="am-post">
+        <h1 class="am-article-title blog-title">
+            域名到期，维护不易，已迁移
+        </h1>
+
+        <hr data-am-widget="divider" style="" class="am-divider am-divider-dashed" />
+        <main class="am-g am-post-content">
+            <p>维护了五年的博客，中途换过一次域名，记录着自己的学习心得，能帮助到您是我的荣幸。原来做博客是为了练习编程，熟悉后端，现在写博客是为了技术，则博客的重点更为重要的是内容，顾不再维护，原因多多，正好域名到期，便将计就计，迁移博客了。
+            </p>
+
+            <h2>墙内访问</h2>
+
+            <p>博客园：<a href="https://www.cnblogs.com/harrylyx/">https://www.cnblogs.com/harrylyx/</a></p>
+
+            <h2>墙外访问</h2>
+
+            <p>Blogger：<a href="https://harrylyx.blogspot.com/">https://harrylyx.blogspot.com/</a></p>
+
+        </main>
+        <div id="gitalk-container"></div>
+    </article>
+</div>
+{% endblock content %}
+{% block scripts %}
+<!-- 配置及生成目录 -->
+<script type="text/javascript">
+    var toc = $("#toc").tocify({
+        selectors: "h2,h3,h4,h5", // 选择要筛选的标题
+        extendPage: false, // 页面不够长时拉长页面，这里选择关闭因为感觉留出大片空白不好看- -
+        highlightDefault: false // 自动高亮第一条
+    });
+</script>
+
+<!-- gitalk -->
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: 'd0945766176fef31e9ad',
+        clientSecret: 'b00257e0c08d85624825b4e3a6ede290d017282e',
+        repo: 'flask-blog',
+        owner: 'harrylyx',
+        admin: ['harrylyx'],
+        id: window.location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    })
+
+    gitalk.render('gitalk-container')
+</script>
+
+{% endblock %}
