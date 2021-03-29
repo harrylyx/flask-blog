@@ -29,7 +29,7 @@ MarkupSafe==1.0
 mccabe==0.6.1
 mistune==0.8.4
 pycodestyle==2.5.0
-Pygments==2.2.0
+Pygments==2.7.4
 PyJWT==1.6.4
 pylint==2.3.1
 PyMySQL==0.8.1
